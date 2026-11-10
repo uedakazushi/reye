@@ -1,0 +1,623 @@
+\documentclass[11pt,a4paper]{ltjsarticle}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{luatexja-fontspec}
+\usepackage{xcolor}
+\usepackage[margin=25mm]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue!40!black,citecolor=blue!40!black,urlcolor=blue!40!black]{hyperref}
+\setmainjfont{HaranoAjiMincho-Regular}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{lemma}[theorem]{補題}
+\newtheorem{proposition}[theorem]{命題}
+\newtheorem{corollary}[theorem]{系}
+\newtheorem{remark}[theorem]{注意}
+\renewcommand{\proofname}{証明}
+\newcommand{\C}{\mathbb C}
+\newcommand{\PP}{\mathbb P}
+\newcommand{\OO}{\mathcal O}
+\newcommand{\Gr}{\operatorname{Gr}}
+\newcommand{\Sym}{\operatorname{Sym}}
+\newcommand{\rk}{\operatorname{rank}}
+\newcommand{\cH}{\mathcal H}
+\newcommand{\cS}{\mathcal S}
+\newcommand{\Hess}{\operatorname{Hess}}
+\newcommand{\Ann}{\operatorname{Ann}}
+\newcommand{\Spec}{\operatorname{Spec}}
+\newcommand{\Crit}{\operatorname{Crit}}
+\newcommand{\Hilb}{\operatorname{Hilb}}
+\title{三次三様体の停留平面と Reye 曲線\\\large 275 個の停留点・定階数 polar pencil・長さ二の特殊化}
+\author{研究原稿のソース復元（原論文 IV の第2--4節に対応）}
+\date{2026年11月10日・ソース復元第1版}
+\begin{document}
+\maketitle
+\begin{abstract}
+滑らかな cubic threefold $V(F)\subset\PP^4$ の平面切断の
+Kodaira--Spencer 零スキームを、制限勾配束写像の退化スキームとして記述する。
+一般の $F$ について停留平面が275個の被約点をなし、その $j$ 値が $0,1728$ を避けることを示す。
+Thom--Porteous 公式の積分275を Chern 根で明示し、定階数4の Hessian 上の直線との対応を証明する。
+また長さ二の停留点を持つ滑らかな三次三様体の族と単純分岐を記述し、一般の gradient 系が
+滑らかな Reye 三様体を与えることを証明する。停留平面から相異なる275本の滑らかな
+Reye 平面三次曲線を得る。これは原論文「三次三様体の停留平面と Reye 曲線の変形・計数」
+（2026-11-01、77ページ）の主要な部分を数学的な式と証明を保持してソース化したものであり、
+原論文の第5--14節の Hilbert/PT、monodromy、長さ三の証明を復元したとは主張しない。
+\end{abstract}
+\tableofcontents
+
+\section{定義と Kodaira--Spencer の零理想}
+$T$ を5次元複素ベクトル空間とし、$F\in\Sym^3T^\vee$ を滑らかな cubic threefold
+$Y_F=V_+(F)\subset\PP(T)$ を定める三次形式とする。
+$G=\Gr(3,T)$ の点 $U$ は平面 $\PP(U)$ に対応する。
+$\cS$ を $G$ 上の階数3の tautological 束とし、$G_F^{\mathrm{sm}}\subset G$ を
+$F|_U$ が滑らかな平面三次式である開集合とする。停留平面とはこの平面切断族の
+Kodaira--Spencer 写像が零になる点であって、$Y_F$ に含まれる平面ではない。
+
+\begin{lemma}[粗い $j$ 微分と Kodaira--Spencer 零理想]\label{lem:j}
+滑らかな平面三次曲線の族の不変式を $S=c_4$, $T_6=c_6$,
+$D=S^3-T_6^2=1728\Delta$ と規格化する\cite[Theorem 4.4]{Fisher}。
+$D$ が単元である領域において
+\[
+ \alpha=2S\,dT_6-3T_6\,dS,\qquad
+ dj=\frac{1728S^2T_6}{D^2}\alpha
+\]
+が成立し、$\alpha$ の係数が生成する理想は Kodaira--Spencer の零理想に等しい。
+特に $j\ne0,1728$ では停留点のスキームは $j$ の臨界スキームである。
+\end{lemma}
+\begin{proof}
+\'{E}tale 局所で変曲点を選び短い Weierstrass 形を取る。
+残る座標変換は $(S,T_6)\mapsto(u^4S,u^6T_6)$ であり、
+無限小軌道の方向は $(4S,6T_6)$ となる。$(S,T_6)\ne(0,0)$ であるから、
+その方向を消す余接線は $2S\,dT_6-3T_6\,dS$ で生成される。
+その引き戻しの零理想が Kodaira--Spencer 零理想である。
+座標変更で $\alpha$ は単元 $u^{10}$ 倍されるだけである。
+$j=1728S^3/D$ を微分すれば表示式を得る。$j\ne0,1728$ では係数が単元である。
+\end{proof}
+
+\section{制限勾配による停留スキーム}
+三次式 $F$ により束写像
+\begin{equation}\label{eq:delta}
+ \delta_F:T\otimes\OO_G\longrightarrow\Sym^2\cS^\vee,
+ \qquad w\longmapsto (\partial_wF)|_{\cS}
+\end{equation}
+を定める。四次小行列式で切り出す退化スキームを
+$Z_F=D_3(\delta_F)$ とする。
+
+\begin{proposition}[停留理想と勾配退化理想]\label{prop:KS}
+$G_F^{\mathrm{sm}}$ 上では $Z_F$ のイデアルが平面切断族の Kodaira--Spencer 零理想に等しい。
+従って $U\in G_F^{\mathrm{sm}}$ が停留平面であることと
+$\rk\delta_F(U)=3$ は同値である。このとき
+$K_U=\ker\delta_F(U)$ は2次元で、$T=U\oplus K_U$ である。
+\end{proposition}
+\begin{proof}
+$U$ の座標を $x_1,x_2,x_3$、補空間の座標を $y_1,y_2$ として
+\[
+ F=f(x)+y_1Q_1(x)+y_2Q_2(x)+O((y_1,y_2)^2)
+\]
+と書く。平面の一次変形 $y_i=\varepsilon\ell_i(x)$ は
+$f$ を $\ell_1Q_1+\ell_2Q_2$ へ変化させる。
+滑らかな平面三次曲線の Jacobian 環
+\[
+ M_f=\C[x_1,x_2,x_3]/(\partial_{x_1}f,\partial_{x_2}f,\partial_{x_3}f)
+\]
+は Hilbert 級数 $(1+t)^3$ を持ち、$M_{f,1}\otimes M_{f,2}\to M_{f,3}$ は完全双対を与える。
+従って全ての $\ell_i$ について Kodaira--Spencer 類が零となることは
+$[Q_1]=[Q_2]=0$ in $M_{f,2}$ と同値である。
+この条件は二つの法方向の偏微分が三つの接方向の偏微分の張る空間に入ること、すなわち
+$\rk\delta_F(U)=3$ と同値である。
+スキーム論的にも、接偏微分の像は滑らかな切断の範囲で階数3の部分束であり、
+その商は $M_{f,2}$ という階数3の束である。
+二つの法偏微分の六成分は完全双対により Kodaira--Spencer 写像の六成分へ可逆な変換で移る。
+接偏微分の三次小行列式が可逆な chart で $\delta_F$ を行列の基本変形により簡約すれば、
+四次 minor の理想はちょうどその六成分の理想となる。
+$\delta_F|_U$ は単射なので $K_U\cap U=0$、次元より $T=U\oplus K_U$ となる。
+\end{proof}
+
+\begin{remark}[粗い $j$ 微分を使う際の注意]
+$F=x^3+y^3+z^3+u^3+v^3+uxy$ の平面 $u=v=0$ は $j=0$ の Fermat 平面三次曲線を切るが、
+$Q_u=xy$ と $\ell=z$ の積の類 $[xyz]$ は Jacobian 環で非零なので停留平面ではない。
+$F$ は滑らかである。$j$ の分岐因子を除かずに $dj=0$ を停留条件とすると、この平面を誤って数える。
+\end{remark}
+
+\section{一般の275停留平面}
+\begin{theorem}[一般の cubic threefold の275停留平面]\label{thm:275}
+三次式空間 $\cH=\Sym^3T^\vee\simeq\mathbb A^{35}$ の非空 Zariski 開集合が存在し、
+その全ての $F$ について以下が成り立つ。
+\begin{enumerate}
+\item $Y_F$ は滑らかであり、$Z_F$ は275個の被約点からなる。
+\item 全ての $U\in Z_F$ は $G_F^{\mathrm{sm}}$ に属し、平面切断の $j$ 値は $0,1728$ を避ける。
+\item 275点は $j$ 関数の非退化 Morse 臨界点である。
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+滑らかな平面切断を持つ普遍停留 incidence
+\[
+ \mathcal Z^{\mathrm{sm}}=
+ \{(F,U)\in\cH\times G:\ F|_U\text{ が滑らか},\ \rk\delta_F(U)=3\}
+\]
+を考える。固定した $U$ で三次式を
+\[
+ F=f(x)+y_1Q_1(x)+y_2Q_2(x)+F_{\ge2}(x,y)
+\]
+と分解すると、自由度は順に $10,6,13$ であり、$\dim G=6$ を加えると総次元35である。
+$f$ が滑らかな開部分では局所的なベクトル束表示となるから、
+$\mathcal Z^{\mathrm{sm}}$ は滑らかかつ既約である。
+
+射影 $\mathcal Z^{\mathrm{sm}}\to\cH$ が優勢かつ一般に \'{e}tale であることは一点で確認できる。
+\[
+ F_\lambda=x^3+y^3+z^3+u^3+v^3+
+ \lambda(u^2+v^2)(x+y+z),\qquad U_0=(u=v=0)
+\]
+とする。$\lambda=0$ で $Y_{F_\lambda}$ は滑らかであり、一般の $\lambda\ne0$ に対しても滑らかである。
+平面を $u=ax+by+cz$, $v=dx+ey+fz$ と書いたとき、二つの法偏微分を
+Jacobian 環の次数2の商で線形化すると、各法方向の三変数について
+\[
+ 2\lambda\bigl((a+b)xy+(a+c)xz+(b+c)yz\bigr)
+\]
+が得られ、対応する $3\times3$ 行列は
+\[
+ 2\lambda\begin{pmatrix}1&1&0\\1&0&1\\0&1&1\end{pmatrix}
+\]
+である。この行列を二ブロックに持つ $6\times6$ 行列の行列式は $256\lambda^6\ne0$ である。
+したがって射影はこの点で \'{e}tale、特に優勢であり、一般ファイバーは非空有限かつ被約となる。
+
+切断が特異な $D_3$ 点は一般 $F$ で起こらない。
+$f$ の三つの接偏微分の張る空間の次元を $r$ とすると、
+$r=3$ で $f$ が特異な場合、および $r=2,1,0$ の場合の普遍 incidence の次元上界は
+\[
+\begin{array}{c|c|c|c}
+ f\text{ の型}&\dim f&\dim(Q_1,Q_2)&\dim\text{incidence の上界}\\\hline
+ r=3,\ f\text{ 特異}&9&6&6+9+6+13=34\\
+ r=2&6&9&6+6+9+13=34\\
+ r=1&3&12&6+3+12+13=34\\
+ r=0&0&12&6+0+12+13=31
+\end{array}
+\]
+となる。$r=2$ の9は、次元4の商へ値を取る二列行列の階数1以下という余次元3の条件による。
+従って特異切断の像は $\cH$ を支配しない。滑らかな切断に $c_4=0$ または $c_6=0$ を課すと
+次元は高々34となるので、一般の停留点の $j$ 値も $0,1728$ を避ける。
+
+$\rk\delta_F$ は階数5から階数6への束写像であり、$D_3$ の期待余次元は
+$(5-3)(6-3)=6=\dim G$ である。Thom--Porteous 公式\cite[Theorem 14.4]{Fulton}から
+\begin{equation}\label{eq:TP}
+ [Z_F]=c_3(\Sym^2\cS^\vee)^2-
+ c_2(\Sym^2\cS^\vee)c_4(\Sym^2\cS^\vee).
+\end{equation}
+次節でこの積分が275であることを示す。
+最後に $Z_F$ の被約性は、Kodaira--Spencer の六係数が一般点で独立な微分を持つことを意味する。
+補題\ref{lem:j}により $j\ne0,1728$ では $dj$ とその六係数は単元倍だから、
+$j$ の Hessian は非退化である。
+\end{proof}
+
+\subsection{Chern 数の厳密な積分}\label{sec:chern}
+$e_i=c_i(\cS^\vee)$ および $C_i=c_i(\Sym^2\cS^\vee)$ とする。
+$\cS^\vee$ の Chern 根を $x,y,z$ とすれば、対称二乗の Chern 根は
+\[
+ 2x,2y,2z,x+y,x+z,y+z
+\]
+である。よって
+\begin{align*}
+ C_2&=5e_1^2+5e_2,\\
+ C_3&=2e_1^3+11e_1e_2+7e_3,\\
+ C_4&=6e_1^2e_2+4e_2^2+14e_1e_3,
+\end{align*}
+したがって
+\[
+ C_3^2-C_2C_4=4e_1^6+14e_1^4e_2-42e_1^3e_3
+ +71e_1^2e_2^2+84e_1e_2e_3+49e_2^3-20e_3^2.
+\]
+$\Gr(3,5)$ 上の積分値は
+\[
+\begin{array}{c|rrrrrrr}
+ \text{単項式}&e_1^6&e_1^4e_2&e_1^3e_3&e_1^2e_2^2&e_1e_2e_3&e_2^3&e_3^2\\\hline
+ \int_G&5&3&1&2&1&1&1
+\end{array}
+\]
+であるから、式\eqref{eq:TP}の次数は
+\[
+ 4\cdot5+14\cdot3-42\cdot1+71\cdot2+84\cdot1+49\cdot1-20\cdot1
+ =\boxed{275}.
+\]
+同じ値は、対称多項式 $P=C_3^2-C_2C_4$ に Vandermonde 積を掛け
+\[
+ [x^4y^3z^2]\,P(x,y,z)(x-y)(x-z)(y-z)=275
+\]
+として厳密に計算できる。再現用コード
+\texttt{computations/source\_recovery/verify\_reye\_275.py} がこれらの恒等式を検証する。
+
+\section{constant-rank Hessian pencil と停留平面}
+\begin{corollary}[Hessian 上の275直線]\label{cor:hessian}
+一般の $F$ と $U\in Z_F$ に対して直線 $\PP(K_U)$ は
+Hessian 五次超曲面 $\{\det\Hess F=0\}\subset\PP(T)$ 上に含まれる。
+その直線上の全点で polar quadric は階数4である。
+逆に、この条件を満たす直線から $U$ は一意に復元される。
+従って階数が恒等的に4である Hessian 上の直線は275本である。
+\end{corollary}
+\begin{proof}
+命題\ref{prop:KS}の補空間 $K=K_U$ を用いれば
+\[
+ F=f(x_1,x_2,x_3)+\sum_{i=1}^3x_iq_i(y_1,y_2)+g(y_1,y_2)
+\]
+と書ける。普遍停留 incidence の一般点では $q_1,q_2,q_3$ は
+$\Sym^2K^\vee$ の基底である。この基底条件は開であり、例えば
+$(q_1,q_2,q_3)=(y_1^2,y_1y_2,y_2^2)$ で成立する。
+$\PP(K)$ 上の点における polar quadric は $U$ 上で零であり、
+その $U\times K$ ブロックは $q_i$ の $(y_1,y_2)$ における微分からなる。
+基底条件の下でこのブロックは常に階数2なので、全行列は階数4となる。
+
+逆に $\PP^1$ をパラメータ空間とする階数4の対称 pencil
+$A(s,t)=sA_0+tA_1$ を考える。束写像
+$\OO_{\PP^1}^{\oplus5}\to\OO_{\PP^1}(1)^{\oplus5}$ の核を
+$L=\OO_{\PP^1}(-e)$ とする。対称性により余核は
+$L^\vee(1)=\OO_{\PP^1}(e+1)$ である。
+次数を比較すると $e=5-(e+1)$、したがって $e=2$。
+核点写像 $\nu:\PP^1\to\PP(T)$ は共通零点を持たない5本の二次式で与えられ、
+$\nu^*\OO(1)=\OO(2)$ となる。その像の線形包は高々平面である。
+像が一点なら核線束の次数に矛盾し、直線なら $\nu$ は次数2の被覆となるので
+異なる二パラメータで同じ核点 $v$ が現れ、$A_0v=A_1v=0$ となる。
+これは全ての核がその一点に等しいという矛盾を生む。
+従って像は滑らかな conic であり、唯一の平面 $\PP(U)$ を張る。
+
+異なるパラメータ $p,q$ の核ベクトルを $v_p,v_q$ とすると、対称性から
+$v_p^{\mathsf T}A(p)v_q=v_p^{\mathsf T}A(q)v_q=0$ である。
+$p,q$ が独立なので $v_p^{\mathsf T}A_iv_q=0$ ($i=0,1$) となる。
+conic の稠密性と線形包から $A_0,A_1$ は $U$ 上で恒等的に零である。
+従って pencil のパラメータ空間 $K$ は $\ker\delta_F(U)$ に含まれ、
+$U\in D_3(\delta_F)$ となる。核 conic の張る平面から $U$ は一意に決まる。
+\end{proof}
+\begin{remark}
+これは Hessian 上の\emph{全ての}直線を数える定理ではない。
+階数3以下の点を通る pencil は含まれず、直線の Fano scheme 全体の局所構造も主張しない。
+定階数対称 pencil の既知の分類\cite{Boralevi}では Kronecker block $L(2)$ に対応する。
+\end{remark}
+
+\section{長さ二の停留点と単純分岐}
+\begin{proposition}[滑らかな cubic 上の長さ二の停留平面]\label{prop:length2}
+$T=\C^5$ の座標を $(x_1,x_2,x_3,y_1,y_2)$ とし
+\begin{align*}
+ f(x)&=x_1^3+x_2^3+x_3^3+3x_1x_2x_3,\\
+ F_G(x,y)&=f(x)+x_1y_1^2+2x_2y_1y_2+x_3y_2^2+G(y_1,y_2),\\
+ G&=c_{30}y_1^3+c_{21}y_1^2y_2+c_{12}y_1y_2^2+c_{03}y_2^3,
+ \qquad U=(y_1=y_2=0).
+\end{align*}
+$G$ の係数空間の非空 Zariski 開集合上で $Y_{F_G}$ は滑らかで、
+$c_{30}+c_{03}\ne0$ となり、$U$ は停留平面である。
+$U$ における $j$ の解析的芽は
+\[
+ j-j(U)=z_1^2+\cdots+z_5^2+t^3
+\]
+へ座標変更でき、$\widehat{\OO}_{Z_{F_G},U}\simeq\C[[t]]/(t^2)$ である。
+\end{proposition}
+\begin{proof}
+普遍超曲面を $\PP^4\times\mathbb A^4$ 内に取る。$y\ne0$ なら
+$c_{30}$ または $c_{03}$ で偏微分した $y_1^3$ または $y_2^3$ が非零であり、
+$y=0$ では $f=0$ が滑らかなので、普遍超曲面は滑らかである。
+固有性と標数0の generic smoothness により一般 $G$ の $Y_{F_G}$ は滑らかで、
+開条件 $c_{30}+c_{03}\ne0$ も同時に課せられる。
+$F_G$ は $y$ に一次の項を持たないので $U$ は停留平面である。
+
+線形化を調べるため $f_\lambda=\sum_i x_i^3-3\lambda x_1x_2x_3$ とする。
+$\lambda^3\ne1$ なら Jacobian 環では
+$[x_i^3]=\lambda[x_1x_2x_3]$、$[x_i^2x_j]=0$ ($i\ne j$) である。
+近傍平面を $y_1=\sum_ia_ix_i$, $y_2=\sum_ib_ix_i$ と書き、
+$M_{f_\lambda,2}$ の基底を $(x_1x_2,x_1x_3,x_2x_3)$ とする。
+二つの法偏微分の一次変化を2で割った行列は
+\[
+ D_\lambda=\begin{pmatrix}
+ 0&1&0&1&0&0\\
+ 0&0&1&0&\lambda&0\\
+ \lambda&0&0&0&0&1\\
+ 1&0&0&0&0&\lambda\\
+ 0&\lambda&0&1&0&0\\
+ 0&0&1&0&1&0
+\end{pmatrix},\qquad \det D_\lambda=(\lambda-1)^3(\lambda+1).
+\]
+$\lambda=-1$ で階数は5、核は $(a,b)=(x_1,x_3)$ に張られる。
+Hesse 族の標準公式\cite[\S2]{Hesse}は
+\[
+ j(\lambda)=27\frac{\lambda^3(\lambda^3+8)^3}{(\lambda^3-1)^3},
+\quad j(-1)=\frac{9261}{8},\quad j'(-1)=\frac{51597}{16}.
+\]
+従って $j(U)\not\in\{0,1728\}$、$j$ の Hessian は階数5である。
+核方向 $y_1=tx_1$, $y_2=tx_3$ に沿う三次式の変化は
+\[
+ F_G|_{U_t}=f+t^2g_2+t^3g_3,\quad
+ g_2=\frac{x_1\partial_1f+x_3\partial_3f}{3},\quad
+ g_3=G(x_1,x_3).
+\]
+Jacobian 環で $[g_2]=0$、$[g_3]=-(c_{30}+c_{03})[x_1x_2x_3]$ なので
+\[
+ j(U_t)-j(U)=\frac{17199}{16}(c_{30}+c_{03})t^3+O(t^4).
+\]
+横断五変数を陰関数定理で消去すると、その補正は $O(t^2)$ で三次係数を変えない。
+解析的 splitting lemma により五次元非退化二次形と一変数の三次項に分離できる。
+$j(U)\ne0,1728$ なので補題\ref{lem:j}により停留理想は $dj$ の係数の理想となり、
+完備局所環は $\C[[t]]/(t^2)$ である。
+\end{proof}
+
+\begin{corollary}[二 Morse 点への単純分岐]
+前命題の $G$ を固定し、$F_{G,\varepsilon}=F_G+\varepsilon y_1x_2x_3$ とする。
+$\varepsilon=0$ の近傍で全停留スキームから $\varepsilon$ 直線への局所解析的射は、
+座標変更により $\varepsilon=t^2$ と書ける。
+従って小さな非零 $\varepsilon$ では二つの Morse 停留点が生じ、
+$\varepsilon=0$ の周りの一周で交換される。
+\end{corollary}
+\begin{proof}
+横断五変数を消去した関数を $h(t,\varepsilon)$ とすると、前証明の計算は
+\[
+ \partial_th=3ct^2+k\varepsilon+O(t^3,\varepsilon t,\varepsilon^2),\quad
+ c=\frac{17199}{16}(c_{30}+c_{03})\ne0,\quad
+ k=-\frac{17199}{16}\ne0
+\]
+を与える。横断変数の補正は $(t^2,\varepsilon)$ 次以上なので二係数を変えない。
+$\partial_th=0$ は $\varepsilon=\psi(t)$ と解け、
+$\psi(t)=3(c_{30}+c_{03})t^2+O(t^3)$ である。
+その非零二次係数を座標変換で1にし、$\varepsilon=t^2$ を得る。
+非零ファイバーでは $\partial_t^2h\ne0$ なので Morse 点であり、
+二枝の解析接続が交換を与える。
+\end{proof}
+
+\section{gradient 系の一般 Reye 三様体}
+$F$ の polar 二次式系を
+\[
+ W_F=\langle\partial_wF:w\in T\rangle\subset\Sym^2T^\vee
+\]
+と定め、順序付き模型
+\[
+ \Gamma_F=\{([x],[y])\in\PP(T)\times\PP(T):
+ \Hess F(x)y=0\}
+\]
+を考える。
+\begin{lemma}[gradient 系の regularity]\label{lem:ReyeReg}
+一般の滑らかな $F$ に対し、$\Gamma_F$ は五つの $(1,1)$ 式の滑らかな完全交叉三様体となる。
+交換 $([x],[y])\mapsto([y],[x])$ は自由で、$W_F$ は5次元かつ basepoint free であり、
+$\Gamma_F/(\mathbb Z/2)\cong
+ X_{W_F}=\Sym^2(\PP(T))\cap\PP(W_F^\perp)$ は滑らかな Reye 三様体である。
+\end{lemma}
+\begin{proof}
+$F$ の対称三重線形偏極 $T_F$ を $F(x)=T_F(x,x,x)$ と規格化する。
+$B=\PP(T)\times\PP(T)$、$E=T^\vee\otimes\OO_B(1,1)$ とし、
+$\Gamma_F$ を切断 $s_F(x,y)=T_F(x,y,-)$ の零スキームと見る。
+固定した $x,y\ne0$ で評価写像 $\Sym^3T^\vee\to T^\vee$ は全射である。
+双対写像 $T\to\Sym^3T$ は $v\mapsto xyv$ であり、対称代数が整域だから単射である。
+従って普遍零スキームは $B$ 上の階数 $35-5=30$ のベクトル束の全空間であり、
+滑らかで次元 $8+30=38$ を持つ。
+$\cH$ への射は固有かつ全射である。全射性は
+$c_5(E)=(h_1+h_2)^5\ne0$ による。零点のない切断なら $c_5(E)=0$ となり矛盾する。
+標数0の generic smoothness により、一般の $F$ の零スキームは滑らかな三次元となる。
+滑らかな $F$ の開条件とも両立する。
+
+対角線上の固定点は $\Hess F(x)x=2\nabla F(x)$ により存在しない。
+$W_F$ の次元が5未満なら $\partial_wF\equiv0$ となる非零 $w$ があり、$F$ は射影錐となる。
+basepoint free 性は $Y_F$ の滑らかさから従う。
+対称 tensor の積 $[x\odot y]$ への写像は交換による商を記述し、
+$W_F^\perp$ の五つの線形条件の引き戻しは $s_F=0$ に一致する。
+標数0では有限群不変部分は exact なので閉スキームとして一致する。
+Reye 模型としての識別には Hosono--Takagi\cite[Proposition 2.1]{HT} の既知の条件を用いる。
+\end{proof}
+
+\begin{lemma}[停留平面からの Reye 三次曲線]\label{lem:CU}
+5次元二次形式系 $W\subset\Sym^2T^\vee$ と3次元 $U\subset T$ について
+$\rk(W\to\Sym^2U^\vee)=3$ とする。
+\[
+ B_U=\Ann(\operatorname{im}(W\to\Sym^2U^\vee))\subset\Sym^2U
+\]
+は3次元である。$\PP(B_U)$ 上の対称 $3\times3$ 行列式が零でないなら、
+その零曲線 $C_U$ は平面三次曲線であり、$X_W$ に含まれる。
+滑らかなら偏極次数3、種数1である。この埋込み曲線は $U$ を一意に決める。
+\end{lemma}
+\begin{proof}
+$\dim\Sym^2U=6$ より $\dim B_U=3$ である。
+rank2以下の対称 tensor は二つの線形因子の積であり、
+$\Sym^2\PP(U)$ は $\PP(\Sym^2U)$ の三次 determinant hypersurface である。
+$B_U\subset W^\perp$ なのでその平面切断は $X_W$ に含まれる。
+また $C_U$ は平面内の非零三次式の零スキームなので一次消滅式を持たず、
+その線形包は $\PP(B_U)$ となる。$B_U$ には rank3 tensor があるので、
+それを $T^\vee\to T$ と見ると像は $U$ である。従って $C_U$ から $U$ が回収できる。
+\end{proof}
+
+\begin{corollary}[275本の滑らかな Reye 平面三次曲線]\label{cor:275CU}
+一般の滑らかな三次三様体 $Y_F$ に対し、275個の停留平面から
+滑らかな Reye 三様体 $X_{W_F}$ 上の相異なる275本の滑らかな平面三次曲線が得られる。
+\end{corollary}
+\begin{proof}
+$U$ が停留平面なら $W_F$ の制限像は $f=F|_U$ の Jacobian 二次式の張る空間に一致する。
+滑らかな $f$ を Hesse 形 $\sum_i x_i^3-3\lambda x_1x_2x_3$ に取る。
+その annihilator net の対称行列は
+\[
+ A(a,b,c)=\begin{pmatrix}\lambda a&c&b\\c&\lambda b&a\\b&a&\lambda c\end{pmatrix},
+\quad \det A=(\lambda^3+2)abc-\lambda(a^3+b^3+c^3).
+\]
+$\lambda^3\ne1$ のとき、この平面三次曲線の特異条件は
+$\lambda=0$ または $(\lambda^3+2)^3-27\lambda^3=0$、すなわち
+$\lambda=0$ または $\lambda^3=-8$ である。
+これは元の $f$ の $j=0$ 条件に一致する。
+定理\ref{thm:275}より一般の275平面切断は $j\ne0,1728$ なので
+すべての $C_U$ は滑らかである。補題\ref{lem:CU}が相異性、補題\ref{lem:ReyeReg}が
+包含先の滑らかさを与える。
+\end{proof}
+
+
+\section{全 Hilbert スキームと安定対の275計数}
+以下は原論文IV第6--8節の内容を、数学的主張の依存関係を明確にして復元したものである。
+一般のgradient Reye三様体を $X=X_{W_F}$、対称テンソル偏極を
+$H=\OO_X(1)$ と書く。前節の275本の曲線を $C_U$ とする。
+
+\begin{lemma}[平面三次曲線の分類]\label{lem:plane3restored}
+Hilbert多項式 $3m$ を持つ $\PP^N$（$N\ge2$）の任意の閉部分スキームは、
+一意な平面上の三次超曲面である。
+\end{lemma}
+\begin{proof}
+これは Skjelnes--Smith の小次数 Hilbert スキームの幾何学的分類
+\cite{SkjelnesSmith} の特殊例である。$\PP^4$ については
+Harris--Roth--Starr \cite[\S3.2]{HarrisRothStarr} にも明記されている。
+非被約・非純次元の候補を初めから除外した分類ではない。
+原論文IV第6節の Hilbert 関数による別証明は飽和化の写像の向きに
+再点検を要するため、ここでは正当性を確認した既知の分類を使用する。
+\end{proof}
+
+\begin{lemma}[平面のsupportの一意性]\label{lem:plane-support-restored}
+$X_W=\PP(W^\perp)\cap\Sym^2\PP(T)$ が射影平面を含まないとする。
+平面 $\PP(B)$ 上の三次曲線 $C\subset X_W$ に対し、
+$B\subset\Sym^2U$ となる3次元部分空間 $U\subset T$ は一意である。
+\end{lemma}
+\begin{proof}
+平面座標 $t$ で $B$ の一般元を対称 $5\times5$ 線形行列 $A(t)$ と書く。
+$C=V(f)$ で三次minorがすべて消えるから、ある定数テンソル $C_0$ について
+$\bigwedge^3A(t)=f(t)C_0$。$C_0=0$ なら平面全体が $X_W$ に含まれてしまう。
+$f(t)\ne0$ の開集合では $\bigwedge^3\operatorname{im}A(t)$ が一定なので
+$\operatorname{im}A(t)$ は固定した部分空間 $U$ となる。
+その次元 $r$ が4以上なら、基準行列との比較から $\bigwedge^3g(t)$ が
+scalar の可逆自己同型 $g(t)$ を得る。$r>3$ ではこれはすべての3次元部分空間を
+保つから $g(t)$ 自身がscalarであり、$\dim B=3$ に矛盾する。
+ゆえに $r=3$。分解可能な $\bigwedge^3U$ から $U$ を一意に復元する。
+$B\subset\Sym^2U$ は線形条件なので開集合から全体へ延長される。
+\end{proof}
+
+\begin{theorem}[原論文IV定理6.5・7.2]\label{thm:reye-pt275-restored}
+一般の $F$ について自然な射
+\[
+ Z_F\xrightarrow{\sim}\Hilb_{3m}(X,H)
+ \xrightarrow{\sim} P_0(X,3)
+\]
+はスキーム同型であり、三者は275個の被約点である。
+標準の Calabi--Yau 安定対の対称障害理論による仮想計数は
+$P_{0,3}=275$ である。
+\end{theorem}
+\begin{proof}
+$X$ は Picard 数1の滑らかな Calabi--Yau 三様体なので射影平面を含まない。
+実際、$D\simeq\PP^2\subset X$ なら随伴公式から $N_{D/X}=\OO_D(-3)$、
+$HD^2=-3$ となるが、$D\equiv aH$、$a>0$ なので $HD^2=a^2H^3>0$ と矛盾する。
+補題\ref{lem:plane3restored}により、任意の $[C]\in\Hilb_{3m}(X,H)$ は
+一意な $\PP(B)$ 上の三次超曲面である。
+補題\ref{lem:plane-support-restored}で $U$ を復元すると
+$\dim(W_F^\perp\cap\Sym^2U)\ge3$、従って $U\in Z_F$。
+一般性からその次元は正確に3であり $B=B_U$。
+その平面内の $X$ の方程式は非零の determinant 三次式なので $C=C_U$ である。
+こうして閉点は275個に限られる。
+既存の法束計算 $H^0(C_U,N_{C_U/X})=0$ より Hilbert 接空間が零で、
+Nakayamaによって各局所環は被約な点となる。これで最初のスキーム同型を得る。
+
+安定対 $(\mathcal F,s)$ には純1次元の支持 $C$ と零次元層 $Q$ による
+$0\to\OO_C\to\mathcal F\to Q\to0$ が付随する。
+小次数曲線の Hilbert 多項式下界
+$\deg C=3\Rightarrow\chi(\OO_C)\ge0$ を用いれば、
+$\chi(\mathcal F)=0$ は $\chi(\OO_C)=\operatorname{length}Q=0$ を強制する。
+従って各安定対は $(\OO_C,1)$ である。
+任意の基底上の family でも、すべての幾何学的fiberで $Q=0$ だから
+Nakayamaにより $Q=0$ が族全体で成立し、Hilbert familyと安定対familyが
+互いに逆に対応する。よって第二のスキーム同型を得る。
+275点は滑らかな0次元スキームなので対称障害理論の接・障害は消え、
+各仮想寄与が1、全数が275となる。
+\end{proof}
+
+\begin{remark}[GV比較と校訂課題]
+原論文IV第7--8節はPT側の三角的BPS変換およびprimary GW/PT対応から
+種数1・次数3のGV係数も275と結論している。この稿では外部定理の全仮定を
+独立監査していないため、その主張は原PDFを証明所在として残す。
+また旧稿の一般 Hilbert 関数の別証明で使う飽和化への写像
+$R/\ell R\to R_Z$ の全射性は再確認を要する。
+\end{remark}
+
+\section{普遍停留 incidence と275点被覆の推移性}
+\begin{theorem}[原論文IV命題13.1]\label{thm:reye-univ-incidence}
+$\mathcal H=\Sym^3T^\vee$ とし、
+$\mathcal H\times\Gr(3,T)$ の滑らかな三次式・滑らかな平面切断の開部分で
+$\delta_F:T\to\Sym^2U^\vee$ の四次minorによる退化スキームを
+$\mathcal I^{\rm sm}$ と書く。
+補空間付き平面 $(U,K)$、$T=U\oplus K$ の空間
+$\mathcal B\simeq\mathrm{GL}_5/(\mathrm{GL}_3\times\mathrm{GL}_2)$
+上の階数23束
+\[
+ \mathcal E=\Sym^3\mathcal U^\vee\oplus
+ (\mathcal U^\vee\otimes\Sym^2\mathcal K^\vee)\oplus
+ \Sym^3\mathcal K^\vee
+\]
+の滑らかな開部分と $\mathcal I^{\rm sm}$ は自然に同型である。
+特に $\mathcal I^{\rm sm}$ は滑らか既約・次元 $12+23=35$。
+従って一般の275停留点の有限étale被覆のmonodromyは推移的である。
+\end{theorem}
+\begin{proof}
+$T=U\oplus K$ で三次式を分解すると
+$\Sym^3T^\vee=\Sym^3U^\vee\oplus
+(\Sym^2U^\vee\otimes K^\vee)\oplus
+(U^\vee\otimes\Sym^2K^\vee)\oplus\Sym^3K^\vee$。
+$\delta_F(K)=0$ は第二項の消滅に等しいので自由度は$10+9+4=23$。
+滑らかな平面切断では接方向の三つの偏微分は一次独立だから
+$\ker\delta_F=K$、$\operatorname{rank}\delta_F=3$。
+逆に階数3のchartで行列を
+$\begin{pmatrix}I_3&B\\0&C\end{pmatrix}$ とすると、四次minorのidealは
+$C$ の六成分で生成される。退化スキーム上で$C=0$となり、
+$\ker\delta_F=\{(-Bb,b)\}$ は $U$ の補空間をなす。
+この逆構成は基底変更と両立するのでスキーム同型となる。
+一般275点の非空性から、この開部分は非空で既約である。
+275点の退化スキームは一般の基底上で有限étaleだから、
+連結な全空間を持ちmonodromyは推移的となる。
+\end{proof}
+
+\section{double symmetroid の550本とrulingの標準的二分}
+\begin{proposition}[原論文IV命題13.13：依存関係付き]\label{prop:reye-550-restored}
+一般のgradient二次形式系に対応するdouble symmetroid族を
+$Y_\Omega\to\Omega$ とする。
+原論文IV第10.4節の「次数1曲線の網羅性」と法束
+$N_{L/Y}=\OO_{\PP^1}(-1)^{\oplus2}$ を入力とすると
+\[
+ \Hilb_{m+1}(Y_\Omega/\Omega)\simeq
+ \mathcal I_\Omega\amalg\mathcal I_\Omega
+\]
+という有限étale被覆の同型がある。
+二つの成分はrank4 pencilに共通する等方平面が選ぶrulingと、そのdeck変換像である。
+したがって550点側のmonodromyは275点側の群の対角像となる。
+\end{proposition}
+\begin{proof}
+停留平面 $U$ のkernel $K_U=\ker\delta_F(U)$ に対し
+$\ell_U=\PP(K_U)$ は全点rank4のHessian直線で、
+任意の $k\in K_U$ についてpolar quadricは $U$ 上で零となる。
+rank4 quadricの極大等方平面の二つの連結な $\PP^1$ 族のStein因子が
+ruling二重被覆である。この共通等方平面$U$は
+$\ell_U$上にsectionを与え、その像とdeck変換像を$L_U^\pm$とする。
+これは普遍kernelと$U$から代数的に作るため、rulingの局所的な番号付けに依存しない。
+従って $\mathcal I_\Omega\amalg\mathcal I_\Omega$ から相対Hilbertスキームへの射を得る。
+入力した曲線の網羅性より幾何学的fiberで全550本に全単射となる。
+法束の消滅からHilbertスキームは各点でétale、
+射影族の固有性より有限étaleとなるので、この射は同型である。
+同じ$U$が両成分を対応付けるためloopは両成分で同じ置換を誘導する。
+deck involutionは二成分を交換するが、基底のloopではない。
+\end{proof}
+
+\begin{remark}[全対称群に残る証明]
+原論文IVの monodromy $S_{275}$ には、異なる二つの停留平面の
+全相対位置のrank層分類による二重推移性（定理13.5）と、
+分岐conormalから分岐点がただ一つと示すtransposition（定理13.9）が必要である。
+本稿はその全証明を移植したものではない。
+二重推移性と単一transpositionを仮定すればその共役で全transpositionが得られ
+$S_{275}$となり、前命題により550側は対角$S_{275}$となる。
+原PDF追跡解除の条件にはこの二証明と第10節の曲線網羅性の移植を含める。
+\end{remark}
+
+\section{復元範囲と検証の所在}
+本稿は元の77ページ論文のうち、Kodaira--Spencer 零理想、275点の列挙、
+Hessian の定階数直線、長さ二の局所模型、一般 gradient Reye 模型の regularity、
+および275本の平面三次曲線の構成を復元した。
+以下は\emph{未復元}であり、原 PDF の追跡解除を許さない。
+GVとの比較、法束と全 Artin 変形、
+550曲線の完全網羅性および二重推移性・分岐の一意性による monodromy $S_{275}$ と対角作用、
+長さ三と cusp の全証明である。
+数学的な数値については $C_2,C_3,C_4$、Schubert 積分275、
+Hesse 行列式の恒等式、$D_\lambda$ の行列式を有理整数演算で再計算した。
+その他の幾何学的証明は元 PDF と照合して再記述したもので、今回すべての外部定理を再監査したわけではない。
+
+\begin{thebibliography}{99}
+\bibitem{Fisher} T. Fisher, \emph{The invariants of a genus one curve}, Proc. London Math. Soc. (3) 97 (2008), 753--782, Theorem 4.4. \url{https://doi.org/10.1112/plms/pdn021}.
+\bibitem{Fulton} W. Fulton, \emph{Intersection Theory}, 2nd ed., Springer, 1998, Theorem 14.4. \url{https://doi.org/10.1007/978-1-4612-1700-8}.
+\bibitem{Hesse} M. Artebani and I. Dolgachev, \emph{The Hesse pencil of plane cubic curves}, Enseign. Math. 55 (2009), 235--273. \url{https://doi.org/10.4171/LEM/55-3-3}.
+\bibitem{Boralevi} A. Boralevi and E. Mezzetti, \emph{Pencils of singular quadrics of constant rank and their orbits}, Rend. Istit. Mat. Univ. Trieste 54 (2022), Art. 16. \url{https://doi.org/10.13137/2464-8728/34102}.
+\bibitem{HT} S. Hosono and H. Takagi, \emph{Mirror symmetry and projective geometry of Reye congruences I}, J. Algebraic Geom. 23 (2014), 279--312, Proposition 2.1. \url{https://doi.org/10.1090/S1056-3911-2013-00618-9}.
+\bibitem{SkjelnesSmith} R. Skjelnes and G. G. Smith,
+\emph{Smooth Hilbert schemes: their classification and geometry},
+J. reine angew. Math. 794 (2023), 281--305,
+\url{https://doi.org/10.1515/crelle-2022-0083}.
+\bibitem{HarrisRothStarr} J. Harris, M. Roth and J. Starr,
+\emph{Curves of small degree on cubic threefolds},
+Rocky Mountain J. Math. 35 (2005), 761--817,
+\url{https://arxiv.org/abs/math/0202067}.
+
+\end{thebibliography}
+\end{document}

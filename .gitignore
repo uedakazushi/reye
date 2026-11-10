@@ -1,0 +1,22 @@
+# Build artefacts and local state
+build/
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fls
+*.fdb_latexmk
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.xdv
+*.run.xml
+__pycache__/
+*.pyc
+.DS_Store
+.venv/
+# Do not track generated PDFs; retain only the original PDF until fully migrated
+*.pdf
+!papers/pdf-only/
+!papers/pdf-only/reye_stationary.pdf

@@ -1,0 +1,162 @@
+\documentclass[11pt,a4paper]{ltjsarticle}
+\usepackage{luatexja-fontspec,amsmath,amssymb,amsthm,mathtools}
+\setmainjfont{HaranoAjiMincho-Regular}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{lemma}[theorem]{補題}
+\newtheorem{remark}[theorem]{注意}
+\newcommand{\CC}{\mathbb C}
+\newcommand{\PP}{\mathbb P}
+\title{長さ三のReye曲線：四次係数とversal cusp}
+\author{原論文IV第12節の有限jet復元}
+\date{2026年11月10日}
+\begin{document}\maketitle
+\section{横断方向と四次係数}
+\[
+f=x_1^3+x_2^3+x_3^3+3x_1x_2x_3,\quad
+F_G=f+x_1y_1^2+2x_2y_1y_2+x_3y_2^2+G(y_1,y_2),
+\]
+\[
+G=C(y_1^3-y_2^3)+Ay_1^2y_2+By_1y_2^2,\qquad
+\Delta=4+21AB+27C^2.
+\]
+$U=\{y_1=y_2=0\}$上の三次式$f$は滑らかで、$j(f)=9261/8\ne0,1728$。
+平面を$y_1=\sum a_ix_i$、$y_2=\sum b_ix_i$として
+\[
+(a_1,a_2,a_3,b_1,b_2,b_3)=(t,z_1,z_2,z_3,z_4,t+z_5)
+\]
+と座標化する。三次Jacobian環のsocle汎関数$\ell$を
+$\ell(x_1x_2x_3)=1$、
+$\ell(x_i^3)=-1$、$\ell(x_i^2x_j)=0$ ($i\ne j$)で規格化する。
+Hesse pencilの公式
+\[
+j\left(\sum x_i^3+3\lambda x_1x_2x_3\right)
+=\frac{27\lambda^3(8-\lambda^3)^3}{(1+\lambda^3)^3}
+\]
+より$j$の一次微分は$\kappa\ell$、
+$\kappa=\tfrac13j'(1)=-17199/16$である。
+平面変数の二次項は$\kappa q$で、
+\[
+q=-(a_1-b_3)^2+2a_2a_3-2a_2b_2+2a_3b_1+2b_1b_2=z^{\mathsf t}Qz,
+\quad
+Q=\begin{pmatrix}
+0&1&0&-1&0\\
+1&0&1&0&0\\
+0&1&0&1&0\\
+-1&0&1&0&0\\
+0&0&0&0&-1
+\end{pmatrix}.
+\]
+$\det Q=-4$であり、横断の五臨界方程式を解ける。
+
+\begin{theorem}[四次係数と長さ三]\label{thm:quartic}
+$V(F_G)\subset\PP^4$が滑らかで$\Delta\ne0$とする。
+$\partial_{z_i}j(t,z)=0$の解析解を$z=\phi(t)$とすれば
+\[
+j(t,\phi(t))-j(U)
+=\frac{\kappa\Delta}{12}t^4+O(t^5).
+\]
+停留平面の完備局所環は$\CC[[t]]/(t^3)$である。
+\end{theorem}
+\begin{proof}
+制限三次式の三次項は$G(a,b)$である。
+そのsocle係数の横断方向への微分は
+$v=(2A,-B,-A,2B,3C)^{\mathsf t}$となる。
+\[
+Q^{-1}v=(-3B/2,A/2,B/2,-3A/2,-3C)^{\mathsf t},\qquad
+v^{\mathsf t}Q^{-1}v=-7AB-9C^2.
+\]
+$\kappa^{-1}(j-j(U))=z^{\mathsf t}Qz+t^2v^{\mathsf t}z+
+\text{(高次項)}$だから
+$\phi(t)=-\frac12Q^{-1}v\,t^2+O(t^3)$である。
+一方、$z=0$に制限すると
+\[
+F_G|_{U_t}=f+t^2(x_1^3+x_3^3+2x_1x_2x_3)+t^3G(x_1,x_3).
+\]
+$t^3$項のsocle係数は零である。
+$x_1,x_3$を$(1+t^2)^{-1/3}$倍してHesse形に戻すと
+\[
+(3+2t^2)(1+t^2)^{-2/3}=3+\tfrac13t^4+O(t^6).
+\]
+従って純四次係数は$\kappa/3$。
+横断消去で$-\kappa v^{\mathsf t}Q^{-1}v/4$が加わり、
+\[
+\frac13-\frac14v^{\mathsf t}Q^{-1}v
+=\frac{4+21AB+27C^2}{12}=\frac{\Delta}{12}.
+\]
+$\Delta\ne0$なら解析的splitting lemmaで
+$j-j(U)\sim z_1'^2+\cdots+z_5'^2+t'^4$。
+$j(U)\notin\{0,1728\}$なので、停留零理想はこの$j$の臨界理想と同じで、
+商は$\CC[[t']]/((t')^3)$となる。
+\end{proof}
+
+\begin{lemma}[非空な滑らかさ条件]
+$G=0$の$F_0$は滑らかな三次超曲面で、$\Delta=4$である。
+したがって「$F_G$が滑らかかつ$\Delta\ne0$」は非空Zariski開条件である。
+\end{lemma}
+\begin{proof}
+$y=0$は$f$の滑らかさから、$x=0$は
+$\partial_xF_0=(y_1^2,2y_1y_2,y_2^2)$から特異点にならない。
+$x,y\ne0$で$\partial_yF_0=0$なら
+\[
+x=\lambda(r^2,rs,s^2),\qquad y=\mu(-s,r),\quad \lambda\mu\ne0.
+\]
+$r=0$または$s=0$は$\partial_xF_0=0$に反する。
+$\partial_{x_2}F_0=0$から$\mu^2=3\lambda^2rs$。
+他の二つへ代入すると$r^3+2s^3=s^3+2r^3=0$となり、
+$r=s=0$という矛盾が生じる。
+\end{proof}
+
+\section{二変数のversal cusp}
+\begin{theorem}[標準cuspとmonodromy]
+前定理の条件で
+$F_{G;s,e}=F_G+sx_1y_1^2+ey_1x_2x_3$を取る。
+横断臨界方程式を解いて得る関数を$h(t;s,e)$、
+$\alpha=\kappa\Delta/3$とすると
+\[
+h_t(t;0,0)=\alpha t^3+O(t^4),\quad
+h_s(t;0,0)=-\kappa t^2+O(t^3),\quad
+h_e(t;0,0)=\kappa t+O(t^2).
+\]
+Weierstrass準備で三次式をdepressして得る局所座標$(u,v)$に対し
+\[
+\det\frac{\partial(u,v)}{\partial(s,e)}(0,0)
+=-\frac{18}{\Delta^2}\ne0.
+\]
+従って相対停留スキームの解析的な芽は$T^3+uT+v=0$。
+原点では長さ3、判別式$4u^3+27v^2=0$の原点以外では$2+1$、
+補集合では$1+1+1$の三根に分かれ、三根の局所monodromyは$S_3$。
+\end{theorem}
+\begin{proof}
+四次係数を微分すると$h_t$を得る。
+横断臨界点のparameter微分項は$\partial_zj=0$により消える。
+平面グラフでは$y_1=tx_1+O(t^2)$なので、
+$s$微分は$t^2x_1^3+O(t^3)$、
+$e$微分は$tx_1x_2x_3+O(t^2)$である。
+$j$の微分$\kappa\ell$を作用させて$h_s,h_e$を得る。
+\[
+h_t=E(t;s,e)\bigl(t^3+a(s,e)t^2+b(s,e)t+c(s,e)\bigr)
+\]
+と一意にWeierstrass分解する。
+$E(0;0,0)=\alpha$、$a=b=c=0$で、$s,e$の定数項と$t$係数を比較すると
+$c_s=0$、$c_e=\kappa/\alpha$、$b_s=-2\kappa/\alpha$。
+$T=t+a/3$、
+$u=b-a^2/3$、$v=c-ab/3+2a^3/27$だから
+基準点では$du=db,dv=dc$であり、求める行列式は
+$b_sc_e-b_ec_s=-2\kappa^2/\alpha^2=-18/\Delta^2$。
+\end{proof}
+\section{Reye曲線へ移すための条件}
+前稿の全Artin比較により、対応するReye曲線の通常のHilbert変形にも
+この局所方程式を移せるのは、ordered模型が実際の滑らかな族であり、
+交換が自由な近傍に限る。
+原論文IVの定理12.9・系12.10は、制限した普遍ordered模型の滑らかさと
+一般の射影的regular性を証明しているが、
+その普遍Jacobianの特殊rank層の独立再監査は本稿では未実施である。
+従って$G=0$でordered模型全体が滑らかであること、
+あるいはPT局所寄与の値が局所jet計算だけで従うことは主張しない。
+\begin{thebibliography}{9}
+\bibitem{AD} M. Artebani and I. Dolgachev,
+\emph{The Hesse pencil of plane cubic curves}, Enseign. Math. 55 (2009), 235--273.
+\bibitem{Input} \emph{三次三様体の停留平面とReye曲線の変形・計数},
+2026年11月1日第2版、第12節。PDF原本はGitで保持。
+\end{thebibliography}\end{document}

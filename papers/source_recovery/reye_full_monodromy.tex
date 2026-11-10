@@ -1,0 +1,453 @@
+\documentclass[11pt,a4paper]{ltjsarticle}
+\usepackage[margin=23mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs,array,longtable,xcolor}
+\usepackage{luatexja-fontspec}
+\usepackage[colorlinks=true,linkcolor=blue!40!black,citecolor=blue!40!black,urlcolor=blue!40!black]{hyperref}
+\setmainjfont{HaranoAjiMincho-Regular}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{lemma}[theorem]{補題}
+\newtheorem{proposition}[theorem]{命題}
+\newtheorem{corollary}[theorem]{系}
+\newtheorem{remark}[theorem]{注意}
+\renewcommand{\proofname}{証明}
+\newcommand{\C}{\mathbb C}
+\newcommand{\PP}{\mathbb P}
+\newcommand{\OO}{\mathcal O}
+\newcommand{\Gr}{\operatorname{Gr}}
+\newcommand{\Sym}{\operatorname{Sym}}
+\newcommand{\Hilb}{\operatorname{Hilb}}
+\newcommand{\Spec}{\operatorname{Spec}}
+\newcommand{\Tot}{\operatorname{Tot}}
+\newcommand{\rk}{\operatorname{rank}}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\Sing}{\operatorname{Sing}}
+\newcommand{\codim}{\operatorname{codim}}
+\newcommand{\Mon}{\operatorname{Mon}}
+\newcommand{\pr}{\operatorname{pr}}
+\newcommand{\Span}{\operatorname{Span}}
+\title{三次三様体の275停留平面の全対称モノドロミー\\
+\large 二点付きincidence・分岐conormal・550本の曲線への応用}
+\author{研究原稿の復元・検証用（原論文IV第13節）}
+\date{2026年11月10日・再構成第1版}
+\begin{document}
+\maketitle
+\begin{abstract}
+滑らかな三次三様体の停留平面の275点被覆について、二点付き普遍incidenceを全ての相対位置で調べ、
+その既約性から二重推移性を得る。さらに、分岐因子のconormal三次式が停留平面を一意に回復することと
+一つの明示的foldを組み合わせ、275点全体に作用する単一のtranspositionを構成する。
+これらから幾何学的モノドロミー群が$S_{275}$であることを証明する。
+共通等方平面がrulingを代数的に選ぶため、double symmetroid上の550本の次数1曲線は
+二つの275点被覆に分かれ、そのモノドロミーは対角$S_{275}$となる。
+本稿は2026年11月1日付の独立原論文IVの第13節の\emph{証明をTeXに再構成したもの}である。
+停留点の横断的存在275、foldの明示例、550曲線の網羅性と法束は別の節の結果を入力とする。
+五つの一般相対位置での行列階数は独立な有理数計算でも照合したが、特殊層の表全体を
+機械的に形式証明したという意味ではない。\end{abstract}
+\tableofcontents
+
+\section{対象と普遍275点被覆}
+$T$を5次元複素ベクトル空間とし、$H=\Sym^3T^*$、$G=\Gr(3,T)$ とする。
+$U\subset T$は$\PP(U)\subset\PP(T)$を表し、
+\[
+ \delta_F(U):T\longrightarrow\Sym^2U^*,\qquad
+ v\longmapsto(\partial_vF)|_U
+\]
+を制限偏微分写像とする。$V_+(F)$ と$V_+(F|_U)$がともに滑らかな開部分で
+$\rk\delta_F\le3$の四次小行列式が切り出す普遍incidenceを$I^{\mathrm{sm}}$とする。
+
+\begin{proposition}[補空間付き平面での表示]\label{prop:single}
+$\mathcal B=\{(U,K):\dim U=3,\dim K=2,T=U\oplus K\}$ とすると、
+$I^{\mathrm{sm}}$は$\mathcal B$上の階数23のベクトル束
+\[
+ \mathcal E=\Sym^3\mathcal U^*\oplus
+ (\mathcal U^*\otimes\Sym^2\mathcal K^*)\oplus\Sym^3\mathcal K^*
+\]
+の、二つの三次超曲面の滑らかさを課した開部分とスキーム同型である。
+よって$I^{\mathrm{sm}}$は非空、滑らか、既約で次元35を持つ。
+\end{proposition}
+\begin{proof}
+$\dim\mathcal B=25-9-4=12$であり、$T=U\oplus K$のもとで
+$\Sym^3T^*$の$\Sym^2U^*\otimes K^*$成分が零であることが
+$\delta_F(K)=0$と同値である。残りは$10+9+4=23$次元。
+滑らかな$f=F|_U$の三つの偏微分は線形独立だから
+$\delta_F|_U$は単射である。四次小行列式の零スキームでは
+$\delta_F$を局所的に
+$\bigl(\begin{smallmatrix}I_3&B\\0&C\end{smallmatrix}\bigr)$に行基本変形でき、
+四次小行列式のイデアルは$C$の全六成分が生成する。
+ゆえにkernelは$\{(-Bb,b)\}$という階数2の部分束であり、$U$の補空間を与える。
+この構成は任意の基底変更と両立するので、上記ベクトル束とのスキーム同型を与える。
+非空性は一般$F$の275個の停留平面の存在による。\end{proof}
+
+以下、元のThom--Porteous計算および横断性で構成された空でないZariski開
+$\Omega\subset H$上で、全ての停留平面切断が滑らか、かつ
+$D_3(\delta_F)$が275個の被約点になることを\emph{入力}とする
+（リポジトリの\texttt{reye\_stationary\_core.tex}参照）。
+
+\begin{corollary}[推移性]\label{cor:trans}
+$I_\Omega=I^{\mathrm{sm}}\times_H\Omega\to\Omega$は、既約な全空間を持つ
+次数275の有限étale被覆であり、そのモノドロミーは推移的である。
+\end{corollary}
+\begin{proof}
+$G$の固有性と零次元fiberから有限となる。六つの局所小行列式は
+$G$の6次元方向で独立なので、被約fiberという仮定から相対Jacobianが正則となりétale。
+$I_\Omega$は命題\ref{prop:single}の既約な全空間の非空開部分である。
+複素解析化の連結性がモノドロミーの推移性を与える。
+\end{proof}
+
+\section{二点付きincidenceの全相対位置}\label{sec:two}
+二つの停留平面を指定した被覆を
+\[
+ I^{(2)}_\Omega=(I_\Omega\times_\Omega I_\Omega)\setminus\Delta
+\]
+と書く。ここで対角を除いたことが重要であり、次数は$275\cdot274$である。
+固定した$(U,K)$、$T=U\oplus K$に対し、$U'\ne U$とその補空間$K'$を動かす。
+$F$に課す線形条件は
+\begin{equation}\label{eq:twocond}
+ T_F(K,U,U)=0,\qquad T_F(K',U',U')=0,
+\end{equation}
+ここで$T_F$は$F(t)=T_F(t,t,t)$で規格化した対称三重形式である。
+第一の条件の解空間は23次元。第二の12個の線形条件の階数を$12-\delta$とする。
+
+\begin{lemma}[全相対位置と階数欠損]\label{lem:allstrata}
+$r=\dim(U\cap U')$、$s=\dim(K\cap U')$と置くと、可能な相対位置は
+$(1,0),(2,0),(1,1),(1,2),(2,1)$に限られる。
+$U'$の$\GL(U)\times\GL(K)$軌道の次元を$o$、
+固定した$U'$における補空間$K'$の各階数層の次元を$b$とすると、次の表が成り立つ。
+\begin{center}\small
+\begin{tabular}{c c p{7.8cm} c}\toprule
+$(r,s)$&$o$&$(b,\delta)$の全階数層&$23+o+b+\delta$の最大\\\midrule
+$(1,0)$&6&$(6,0),(4,1),(3,1),(2,1),(0,3)$&35\\
+$(2,0)$&4&$(6,0),(4,3),(4,2),(3,3),(0,6)$&34\\
+$(1,1)$&5&$(6,0),(5,1),(2,2),(4,1),(3,2)$&34\\
+$(1,2)$&2&$(6,1),(5,2),(2,4)$&32\\
+$(2,1)$&3&$(6,0),(5,2),(4,3),(3,5)$&34\\\bottomrule
+\end{tabular}
+\end{center}
+最初の行の$(6,0)$層は既約な非空開部分で、これを基底とした式\eqref{eq:twocond}の
+全空間は階数11のベクトル束、次元35である。それ以外の全階数層の次元は34以下である。
+\end{lemma}
+\begin{proof}
+$r+s\le3$、$1\le r\le2$、$0\le s\le2$である。
+相対位置の軌道はこれらの整数で決定され、その次元は
+\begin{equation}\label{eq:orbit}
+ o=r(3-r)+s(2-s)+2(3-r-s)
+\end{equation}
+で、それぞれ$6,4,5,2,3$となる。各$U'$の補空間全体は
+$\operatorname{Hom}(T/U',U')\simeq\mathbb A^6$である。
+以下、$K'$のgraph係数を変化させて第二条件の階数を求める。
+
+\smallskip\noindent\textbf{型$(1,0)$：}
+$U=(z,x_1,x_2)$、$K=(y_1,y_2)$、$U'=(z,x_1+y_1,x_2+y_2)$とする。
+$K'$は二変数の列$t$によって
+\[
+ (z,x,y)=(b^\top t,Mt,(I+M)t),\qquad b\in\C^2,\ M\in\operatorname{Mat}_{2\times2}(\C)
+\]
+と一意に書ける。第一条件を満たす$F$は
+\[
+ F=az^3+z^2\ell(x)+zS(x)+f_0(x)+zQ(y)
+    +x_1q_1(y)+x_2q_2(y)+g(y)
+\]
+である。$U'$上の制限を$h=az^3+z^2\ell+zR+H$、
+$R=S+Q$、$H=f_0+x_1q_1(x)+x_2q_2(x)+g(x)$と書く。
+$K'$による二つの微分の二次式のうち$z$の無い六成分は独立に消去できる。
+実際、$H$は$f_0$で任意に調整でき、
+$(q_i)\mapsto(\sum_i x_i\partial_jq_i)_{j=1,2}$は
+$\C^6\to\C^6$の同型である（係数の二添字対称性と、零核条件を交互に使えば零核になる）。
+残る条件は
+\begin{equation}\label{eq:r10}
+ 3ab+M^\top\ell=0,\qquad Q+M^\top R+b\ell^\top=0.
+\end{equation}
+第二式の対称部分で$Q$を消し、反対称部分を一条件として残す。
+$M$がscalarでないとき、対称$R$から$\operatorname{Alt}(M^\top R)$への写像は非零。
+行列$\bigl(\begin{smallmatrix}b^\top\\M\end{smallmatrix}\bigr)$の階数が2か1かにより
+層$(6,0),(4,1)$を得る。$M=\mu I$, $\mu\ne0$は$(3,1)$、
+$M=0,b\ne0$は$(2,1)$、$M=b=0$は$(0,3)$である。
+
+\smallskip\noindent\textbf{型$(2,0)$：}
+$U=(z_1,z_2,w)$、$K=(v_1,v_2)$、$U'=(z_1,z_2,w+v_1)$とする。
+$K'$のgraphの列の$U$内の2次元成分を$a_j$、残る成分を$c_j$と書く。
+$h=F|_{U'}=h_0(z_1,z_2)+wh_1(z_1,z_2)+w^2h_2+aw^3$を自由に指定でき、
+追加の方向微分の$w$で割り切れる六条件を独立に消去できる。
+残る条件は
+\begin{equation}\label{eq:r20}
+ \partial_{a_j}h_0+c_jh_1=0\qquad (j=1,2).
+\end{equation}
+$(c_1,c_2)\ne0$のとき$h_1$を消去して$h_0$の一方向微分に帰着する。
+対応する係数行列の階数により$(6,0),(4,3)$。
+$(c_1,c_2)=0$のとき$a_1,a_2$の階数が2、1、0に応じて
+$(4,2),(3,3),(0,6)$を得る。
+
+\smallskip\noindent\textbf{型$(1,1)$：}
+$U=(z,u,a)$、$K=(v,w)$、$U'=(z,u+v,w)$とする。
+補空間の基底を
+\[
+ k_1=a+b_1z+c_1(u+v)+d_1w,\quad
+ k_2=v+b_2z+c_2(u+v)+d_2w
+\]
+と選べる。$U'$上の$h=F|_{U'}$は$z^2w$係数を欠き、
+$\partial_aF|_{U'}$は$zw$係数を欠く。
+$\partial_vF|_{U'}$の$z^2$係数は零で、$zw$係数は$h$の$ztw$係数$D$に等しい。
+その他の九成分を消去すると、残りは
+\[
+ c_1D+2d_1E=0,\qquad 3b_2A+c_2B=0,\qquad(c_2+1)D+2d_2E=0.
+\]
+従って残余階数は
+\[
+ \rho+\sigma,\quad \rho=\rk(3b_2,c_2),\qquad
+ \sigma=\rk\begin{pmatrix}c_1&d_1\\ c_2+1&d_2\end{pmatrix}.
+\]
+$\rho=1$かつ$\sigma=2,1,0$の層は$(6,0),(5,1),(2,2)$、
+$\rho=0$かつ$\sigma=2,1$は$(4,1),(3,2)$となる。
+
+\smallskip\noindent\textbf{型$(1,2)$：}
+$U'=(z,v,w)$とし、$K'$の二列の$U'$に沿う係数のうち
+$(v,w)$成分を$2\times2$行列$M$にまとめる。
+$h=F|_{U'}=Az^3+zQ(v,w)+g(v,w)$で、
+$K'$方向の二次式のうち八つの係数を独立に消去した後の四条件は
+\begin{equation}\label{eq:r12}QM=0\end{equation}
+となる。$\rk M=2,1,0$の場合、対称二次形式$Q$に課す階数は
+それぞれ$3,2,0$。従って$(b,\delta)=(6,1),(5,2),(2,4)$を得る。
+
+\smallskip\noindent\textbf{型$(2,1)$：}
+$U'=(z,u,v)$とし、$K'$の二列のgraph係数を$b_j,c_j,d_j$とする。
+$F|_{U'}=h_0(z,u)+v^2(\alpha z+\beta u)+\gamma v^3$であり、
+二つの追加方向微分の独立な七係数を消去すると、残りは
+\begin{equation}\label{eq:r21}
+ d_1\alpha=d_1\beta=0,\qquad \partial_{(b_2,c_2)}h_0=0.
+\end{equation}
+$d_1$と$(b_2,c_2)$の零・非零により順に
+$(6,0),(5,2),(4,3),(3,5)$となる。
+
+\smallskip
+最後に$(U,K)$の自由度12、$U'$の自由度$o$、補空間$K'$の層の次元$b$、
+$F$の解空間の次元$23-(12-\delta)=11+\delta$を加えると
+\[
+ \dim\mathcal J_{r,s;b,\delta}=12+o+b+11+\delta=23+o+b+\delta.
+\]
+表から最初の行の$(6,0)$だけが35次元、残りは34以下である。
+主層は$\GL(U)\times\GL(K)$の既約な開軌道、
+補空間$K'$の既約な開条件、その上の階数11のkernel束からなり既約である。
+\end{proof}
+
+\begin{theorem}[275点被覆の二重推移性]\label{thm:double}
+$\Omega$上の相異なる停留平面の順序付き二点被覆$I_\Omega^{(2)}$は既約である。
+従って275点へのモノドロミー作用は二重推移的である。
+\end{theorem}
+\begin{proof}
+命題\ref{prop:single}より各停留平面の補空間は$K=\ker\delta_F$として基底変更と両立して一意に決まる。
+ゆえに$I_\Omega^{(2)}$は補空間付き二点incidenceの$\Omega$への制限である。
+有限étale被覆なので全ての既約成分は次元35。
+補題\ref{lem:allstrata}の主層以外の全階数層は次元34以下なので、
+各既約成分は主層と交わる。主層の$\Omega$への制限は、
+その既約空間の非空開部分だから既約である。
+有限étale被覆の異なる既約成分は滑らかで互いに交わらないため、成分は一つとなる。
+二点付き被覆の連結性は順序付き相異二点への推移性と同値である。
+\end{proof}
+
+\section{分岐のconormalによる平面の復元}\label{sec:conormal}
+$I^{\mathrm{sm}}$の$H\times G$内での被約閉包を$Y$、その正規化を
+$\nu:\widetilde Y\to Y$、射を$p:\widetilde Y\to H$とする。
+$I_U$を$\PP(U)$の斉次イデアルとすると、$(I_U^2)_3$は13次元である。
+
+\begin{lemma}[分岐conormalの共通特異直線]\label{lem:conormal}
+$p$は固有、優勢、一般有限で次数275を持つ。正次元fiberの像は余次元2以上である。
+$U$を固定した13次元ベクトル空間$(I_U^2)_3$の平行移動
+$(F,U)\mapsto(F+h,U)$は$Y$と$\widetilde Y$に作用する。
+$p$の分岐因子$D$の一般点$F$の分岐点$r$が$\nu(r)=(F,U)$を満たすとき、
+$D$のconormal三次式$\lambda\in H^*=\Sym^3T$は
+\begin{equation}\label{eq:conormal}
+ \lambda\in\Sym^2U\cdot T,\qquad
+ \PP(U^\perp)\subset\Sing V_+(\lambda)\subset\PP(T^*)
+\end{equation}
+を満たす。ここでは$F|_U$の滑らかさや$\rk\delta_F=3$を仮定しない。
+\end{lemma}
+\begin{proof}
+$G$が射影的だから$Y\to H$は固有、正規化は有限である。
+$\Omega$上では次数275の被覆なので$p$は優勢で一般有限。
+正次元fiberの像の閉集合が因子を含めば、その逆像は少なくとも35次元の真閉集合となり、
+既約35次元の$\widetilde Y$に矛盾する。よって余次元2以上であり、分岐因子の一般点で$p$は有限。
+
+$T=U\oplus K$を用いると、$(I_U^2)_3$の成分は
+$U^*\otimes\Sym^2K^*$と$\Sym^3K^*$で、次元は$9+4=13$。
+これらは$F|_U$および全ての$(\partial_vF)|_U$を変えないため、
+$Y$の停留条件を保存する。滑らかな三次式を保つ稠密開部分から閉包へ延ばし、
+逆元・加法則を使えばベクトル束の作用となる。
+正規化上のベクトル束は正規で、正規化の普遍性によって作用は$\widetilde Y$へ持ち上がる。
+
+分岐因子上の一般点では$\widetilde Y$が滑らか、
+$p$の微分像は$D$の接超平面と一致する（標数零で分岐因子の一般点は分離的）。
+13方向の平行移動を微分すると
+$(I_U^2)_3\subset\operatorname{im}(dp)$だから、
+$\lambda$はこの空間を零化する。そのannihilatorは
+$\Sym^3U\oplus(\Sym^2U\otimes K)=\Sym^2U\cdot T$。
+これらの三次式は$U$の変数を少なくとも二つ含むので、
+$U$の全変数が消える直線$\PP(U^\perp)$上で一次偏微分も全て消える。
+\end{proof}
+
+\begin{lemma}[明示foldのconormalと唯一の特異直線]\label{lem:foldconormal}
+原論文IVの局所的な長さ2の停留点を持つ滑らかな三次式$F_G$で、
+三次係数$c_{30}+c_{03}\ne0$を満たす点を取ると、
+対応する分岐のconormal三次式は定数倍を除き
+\begin{equation}\label{eq:c0}
+ c_0=w_1(-z_1^2+2z_2z_3)+w_2(-z_3^2+2z_1z_2)
+\end{equation}
+である。$\Sing V_+(c_0)$の被約台は直線
+$L=\{z_1=z_2=z_3=0\}$と、$\{w_1=w_2=0\}$上の4点
+\begin{equation}\label{eq:4points}
+ (0:1:0),\qquad(1:\zeta^2/2:\zeta)\quad(\zeta^3=1)
+\end{equation}
+からなる。従って特異直線は$L$だけである。
+同じramification成分の一般点でもこの性質は成立する。
+\end{lemma}
+\begin{proof}
+平面三次式$f$のJacobian環$R_f=\C[x_1,x_2,x_3]/(\partial f)$のsocleを
+$\tau([x_1x_2x_3])=1$と規格化すると、分岐の1次余法線は
+\[
+ \dot F\longmapsto \tau([x_1g_1+x_3g_2]),\qquad
+ \dot F=\dot f+y_1g_1+y_2g_2+O((y_1,y_2)^2).
+\]
+これは停留条件の残余六式のJacobian左kernelが1次元で、
+その生成行ベクトルが$(0,0,1,1,0,0)$であるという原論文の局所計算による。
+Jacobian環の関係から$\tau(x_i^3)=-1$、
+$\tau(x_i^2x_j)=0$（$i\ne j$）、$\tau(x_1x_2x_3)=1$となる。
+従ってinverse cubicは
+$P_f(z)=-(z_1^3+z_2^3+z_3^3)+6z_1z_2z_3$であり、
+上の余法線は$w_1\partial_{z_1}P_f+w_2\partial_{z_3}P_f$の定数倍に一致する。
+これが式\eqref{eq:c0}である。
+
+$Q_1=-z_1^2+2z_2z_3$、$Q_2=-z_3^2+2z_1z_2$とする。
+$Q_1=Q_2=0$の解は式\eqref{eq:4points}の四点で、
+そのJacobianは各点で階数2を持つ。
+$z\ne0$の$\Sing(c_0)$では$Q_1=Q_2=0$かつ
+$w_1\nabla Q_1+w_2\nabla Q_2=0$だから$w_1=w_2=0$。
+$z=0$なら任意の$w$で特異となる。
+四点は一つの射影直線に乗らず、他に特異直線は存在しない。
+二つのconicが四点で横断することは非空Zariski開条件だから、
+同じ分岐成分の一般点に性質が持ち上がる。
+\end{proof}
+
+\begin{theorem}[唯一の単純分岐とtransposition]\label{thm:transposition}
+$275$点被覆$I_\Omega\to\Omega$の幾何学的モノドロミー群には、
+ある二点を交換し、他の273点を固定する一つのtranspositionが含まれる。
+\end{theorem}
+\begin{proof}
+原論文IV命題3.6・系3.7で構成された、滑らかな三次式の一つの停留点は
+局所環$\C[[t]]/(t^2)$を持ち、明示した係数方向に横断的なunfoldingを持つ。
+他の五つのGrassmannian方向を陰関数定理で消去すると、局所方程式は
+$3ct^2+k\varepsilon+O(t^3,\varepsilon t,\varepsilon^2)=0$（$ck\ne0$）。
+したがって射はfold$(t,s)\mapsto(t^2,s)$であり、
+そのramification成分$R_0$の像の閉包は分岐既約因子$D$となる。
+
+補題\ref{lem:foldconormal}の特異直線の一意性は$R_0$の非空開部分で成立する。
+補題\ref{lem:conormal}から、$D$の一般点でのあらゆる分岐点$(F,U)$について
+$\PP(U^\perp)$は同じconormal三次式の特異直線である。
+一意性によって全ての分岐点で$U=U_0$となる。
+$(F,U_0)$は滑らかな切断を持つ$I^{\mathrm{sm}}$の滑らかなfold点なので、
+正規化の上には一つの点しか存在しない。従ってこの点だけが分岐し、指数は2である。
+
+$p$は$D$の一般点の近傍で有限。局所DVR上の有限支配代数はtorsion-freeだから自由で、
+総次数は275。$\widetilde Y$の正規性から余次元1の一般点では滑らかなので、
+fold以外はétaleとなる。従って局所的な解析的円板の横断断面では
+一つの二重被覆と273本の自明な一枚被覆へ分かれる。
+分岐以外の悪い集合を避けて小さな一周を取れば、
+275枚のうち二枚だけを入れ替えるtranspositionを得る。
+\end{proof}
+
+\begin{corollary}[全対称モノドロミー]\label{cor:full}
+一般の三次式の275停留平面の幾何学的モノドロミー群は
+\[
+ \boxed{\Mon(I_\Omega/\Omega)=S_{275}}.
+\]
+この結論は$\Omega$の任意の非空Zariski開部分への制限でも成り立つ。
+\end{corollary}
+\begin{proof}
+定理\ref{thm:double}により群は二重推移的、定理\ref{thm:transposition}により
+$(a\,b)$を含む。相異なる任意の$(c,d)$に対して
+$g(a)=c,g(b)=d$となる$g$を取れば
+$g(a\,b)g^{-1}=(c\,d)$が群に属する。
+全てのtranspositionが生成する群は$S_{275}$である。
+非空開への制限でもGalois閉包の既約な全空間は非空開部分を取るだけなので連結であり、像は変わらない。
+\end{proof}
+
+\section{double symmetroidの二つの275点成分}
+$W_F=\langle\partial_vF:v\in T\rangle\subset\Sym^2T^*$とし、
+そのsymmetroid$H_{W_F}=\{\det Q=0\}\subset\PP(W_F)$のrank4部分を考える。
+各停留平面$U$に対して$K_U=\ker\delta_F(U)$は二次形式のpencilを与え、
+$\ell_U=\PP(K_U)$の全二次式はrank4と仮定する。
+
+\begin{proposition}[標準的なruling選択]\label{prop:ruling}
+$\ell_U$上の全quadricの共通等方空間$U$は、rank4二次形式の二つのrulingを記録する
+Stein二重被覆上のsectionを定める。従って$\ell_U$の逆像は二本の射影直線
+$C_U^+$、$C_U^-=\iota(C_U^+)$に標準的に分かれる。
+\end{proposition}
+\begin{proof}
+$k\in K_U$なら$(\partial_kF)|_U=0$だから、そのpolar quadricは$U$上で零となる。
+よって$[k]\mapsto(\partial_kF,U)$は共通等方平面を付加したquadric族への射である。
+rank4 quadricの極大等方平面の族は二つの$\PP^1$に分かれ、
+そのStein因子がruling二重被覆となる\cite{HT}。
+共通の$U$を指定する射をStein因子へ合成すると$\ell_U$上のsectionが得られる。
+このsectionの像とdeck変換の像は開閉二成分となり、基底変更と可換である。
+\end{proof}
+
+\begin{theorem}[550本の二分と対角作用]\label{thm:550}
+一般$F$の開集合$\Omega$を適切に縮小し、
+原論文IV定理10.4の全次数1曲線網羅性と、その法束$\OO_{\PP^1}(-1)^{\oplus2}$を入力とする。
+このときdouble symmetroidの次数1曲線の相対Hilbertスキームには
+\[
+ \Hilb_{m+1}(Y_\Omega/\Omega)\simeq I_\Omega\amalg I_\Omega
+\]
+という標準的な有限étale被覆の同型がある。
+550点側のモノドロミー群は$\{(\sigma,\sigma):\sigma\in S_{275}\}\subset S_{550}$である。
+\end{theorem}
+\begin{proof}
+命題\ref{prop:ruling}の構成を普遍kernelに適用すると
+$I_\Omega\amalg I_\Omega$から次数1曲線の相対Hilbertスキームへの射を得る。
+原論文IV定理10.4によってfiberの全550曲線を尽くし、法束の消滅によって相対Hilbert射はétale。
+射影性と有限fiberより有限étale・次数550である。
+有限étale被覆のfiberごとの全単射は同型を与える。
+両成分を同じ停留平面がラベル付けするので、loopによる置換は対角となる。
+一方deck involutionは二成分を一斉交換し、基底のloop作用とは異なる。
+\end{proof}
+
+\begin{corollary}[一般の対称二次形式系]\label{cor:generalW}
+$\mathfrak B=\Gr(5,\Sym^2T^*)$の非空Zariski開集合において、
+regular Reye三様体の次数3・算術種数1曲線のHilbert被覆は次数275、
+double symmetroidの次数1曲線のHilbert被覆は次数550の有限étale被覆であり、
+monodromy群は順に$S_{275}$とその対角像である。
+\end{corollary}
+\begin{proof}
+$\mathfrak B\times G$上の普遍制限写像
+$W\to\Sym^2U^*$の階数3以下の退化スキームを考える。
+一般gradient系のfiber上で275点全てが被約、相対Jacobianが可逆なので、
+固有性とétale locusの開性から適切な開集合で次数275の有限étale射となる。
+同様にregular性、rank4 pencil、smooth determinant cubic、Hilbert法束の消滅を満たすよう開集合を縮める。
+普遍kernelとruling選択により275点と550点のHilbert被覆はそれぞれ
+停留被覆、停留被覆の二つのcopyに一致する。
+三次式係数から二次形式系への射$F\mapsto W_F$を用いて引き戻すと
+前者は$S_{275}$のモノドロミーを持つので、元の被覆の群も$S_{275}$である。
+\end{proof}
+
+\section{証明の状態と再現の範囲}\label{sec:verification}
+本稿では原論文IVの命題13.1、補題13.4、定理13.5、補題13.7・13.8、定理13.9、
+系13.11、命題13.13、系13.15の論証を一つのTeXへ再構成した。
+入力した一般275点・fold例・550本の全曲線の網羅性は、引き続き
+\texttt{papers/source\_recovery/reye\_stationary\_core.tex}と原PDFの第3・10節に依存する。
+補題\ref{lem:allstrata}の主要な五つの相対位置のgenericな階数を
+\texttt{computations/source\_recovery/verify\_reye\_two\_point\_ranks.py}で有理数体上厳密に再計算した。
+この有限検算は特殊層全体の普遍的な証明ではなく、本文の係数行列の分類を証明として用いる。
+conormal cubicの特異直線と四点についても式から独立に確認できる。
+\emph{本論文IVの77ページ全体の完全再現ではない}ため、Git追跡中の元PDFを外す段階には至っていない。
+
+\begin{thebibliography}{9}\small
+\bibitem{HT} S.~Hosono and H.~Takagi,
+\textit{Double quintic symmetroids, Reye congruences, and their derived equivalence},
+J. Differential Geom. \textbf{104} (2016), 443--497,
+\url{https://arxiv.org/abs/1302.5883}.
+\bibitem{HT1} S.~Hosono and H.~Takagi,
+\textit{Mirror symmetry and projective geometry of Reye congruences I},
+J. Algebraic Geom. \textbf{23} (2014), 279--312,
+\url{https://arxiv.org/abs/1101.2746}.
+\bibitem{Input} \textit{三次三様体の停留平面とReye曲線の変形・計数},
+研究原稿（2026年11月1日、第2版）、第3・10・13節。原PDFは本リポジトリの
+\texttt{papers/pdf-only/boundary/reye\_stationary.pdf}に保全。
+\end{thebibliography}
+\end{document}

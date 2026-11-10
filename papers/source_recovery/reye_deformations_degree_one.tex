@@ -1,0 +1,283 @@
+\documentclass[11pt,a4paper]{ltjsarticle}
+\usepackage{luatexja-fontspec,amsmath,amssymb,amsthm,mathtools}
+\setmainjfont{HaranoAjiMincho-Regular}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{lemma}[theorem]{補題}
+\newtheorem{proposition}[theorem]{命題}
+\newtheorem{corollary}[theorem]{系}
+\newcommand{\CC}{\mathbb C}
+\newcommand{\PP}{\mathbb P}
+\newcommand{\OO}{\mathcal O}
+\newcommand{\Gr}{\operatorname{Gr}}
+\newcommand{\Hilb}{\operatorname{Hilb}}
+\newcommand{\Sym}{\operatorname{Sym}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\title{Reye曲線の全Artin変形とHessian直線・550本の次数一曲線}
+\author{原論文IV第5・9・10節のTeX復元稿}
+\date{2026年11月10日}
+\begin{document}\maketitle
+\section{設定}
+$T$を五次元複素空間、$W\subset\Sym^2T^*$を五次元の対称二次式系とする。
+$\Gamma_W=\{([x],[y])\in\PP(T)^2:q(x,y)=0\ (q\in W)\}$が滑らかな
+三次元完全交叉で交換$(x,y)\leftrightarrow(y,x)$が自由とし、$X_W=\Gamma_W/\langle\iota\rangle$と置く。
+$U\in\Gr(3,T)$について
+\[
+r_U:W\longrightarrow\Sym^2U^*,\quad
+K=\ker r_U,\quad A=\operatorname{im}r_U,\quad Q=T/U,\quad R=\operatorname{coker}r_U
+\]
+とし、$\operatorname{rank}r_U=3$、$B=A^\perp\subset\Sym^2U$上の
+determinant三次曲線$C_U\subset\PP(B)$が滑らかであると仮定する。
+$Z_W=D_3(r)$を$\Gr(3,T)$上の四次minorの退化スキームとする。
+以下は原論文IVにおける証明の再構成である。
+一般gradient系$W_F=\langle\partial_vF:v\in T\rangle$に関しては、
+$Z_F$が275個の被約点、各点の$r_U$が階数3、$C_U$が滑らか、
+対応するHessian直線が全点階数4、かつordered模型が滑らかという
+第3・4節の定理を明示的な入力とする。
+
+\section{楕円三次曲線の法束と変形関手}
+\begin{lemma}[順序付き二重被覆]
+$\widetilde C=C_U\times_{X_W}\Gamma_W$は連結な滑らかな種数一曲線で、
+$\PP(U)^2$内の三つの$(1,1)$式の完全交叉である。
+$\pi:\widetilde C\to C_U$、$L=\OO_{\widetilde C}(1,0)$、
+$E=\pi_*L$、$M=\OO_{C_U}(1)$と置くと
+\[
+\deg L=3,\quad H^0(E)=U^*,\quad H^0(M)=R,\quad
+H^1(E)=H^1(M)=0,\quad \det E\simeq M\otimes\eta,
+\]
+ここで$\pi_*\OO_{\widetilde C}=\OO_C\oplus\eta$、$\eta$は非自明な二捩れ線束である。
+\end{lemma}
+\begin{proof}
+rank二対称tensorの像が$U$に含まれるなら二つの因子も$U$に入る。
+従って$\widetilde C$は$\PP^2\times\PP^2$内の$(1,1)^3$完全交叉である。
+Koszul分解
+$0\to\OO(-3,-3)\to\OO(-2,-2)^3\to\OO(-1,-1)^3\to\OO\to\OO_{\widetilde C}\to0$
+から$h^0(\OO_{\widetilde C})=h^1(\OO_{\widetilde C})=1$。
+$\deg L=\int h_1(h_1+h_2)^3=3$、捻ったKoszul分解から$H^0(L)=U^*$と$H^1(L)=0$を得る。
+$M$の主張は平面三次曲線の制限列による。
+$\operatorname{Nm}_\pi L=M$、$\det\pi_*\OO=\eta$より行列式公式を得る。
+さらに$E$に次数$d\ge2$の線部分束があれば
+$\pi^*D\to L$が非零となり$2d>3$に反するため、$E$は安定である。
+\end{proof}
+\begin{theorem}[法束・接空間の完全列]\label{thm:normal}
+自然な完全列
+\[
+0\to N_{C_U/X_W}\to Q\otimes E
+ \overset{\beta}{\longrightarrow}K^*\otimes M\to0,\qquad
+\beta(\xi_x,\xi_y)(q)=q(\xi_x,y)+q(x,\xi_y)
+\]
+があり、$\det N\simeq\OO_C$、$\deg N=0$。
+そのcohomology完全列は
+\[
+0\to H^0(N)\to\Hom(U,Q)\overset{D_U}{\longrightarrow}
+\Hom(K,R)\to H^1(N)\to0,\qquad
+D_U(\varphi)(q)=[2q(u,\widetilde\varphi(u))].
+\]
+$T_UZ_W=\ker D_U=H^0(C_U,N)$であり、$U\mapsto C_U$の接写像もこれに等しい。
+\end{theorem}
+\begin{proof}
+rank二対称tensorの滑らかな開集合$S$と$Y=\Sym^2\PP(U)\cap S$について、
+$C\subset Y\subset S$と$C\subset X_W\subset S$のconormal完全列を比較する。
+$A^*\otimes M\subset W^*\otimes M$を商に取ると
+$0\to N_{C/X_W}\to N_{Y/S}|_C\to K^*\otimes M\to0$。
+ordered被覆上では$N_{Y/S}|_C$が$Q\otimes(L\oplus\iota^*L)$に引き戻されるので、
+降下によって$Q\otimes E$となる。
+右向き射は二次式の法方向微分で、式の$\beta$を得る。
+次数と行列式は$\det E=M\otimes\eta$を用いて求める。
+$H^1(E)=H^1(M)=0$によりcohomology完全列を得る。
+$U$をグラフ$u\mapsto u+\varepsilon\varphi(u)$で動かすと$\beta$の微分は$D_U$。
+階数3のminorを単元とするchartで四次minorの理想は残る$3\times2$blockの
+六係数となり、その線形化が$D_U$なので、接空間の同定はscheme-theoreticである。
+\end{proof}
+\begin{theorem}[全局所Artin基底の変形比較]\label{thm:artin}
+任意の局所Artin $\CC$-代数$R_0$について
+$U$の$Z_W$内の平坦な持ち上げと、$C_U\subset X_W$の
+埋込み平坦持ち上げは自然に一対一対応する。
+従って
+\[
+\widehat{\OO}_{Z_W,U}\simeq\widehat{\OO}_{\Hilb(X_W),[C_U]}.
+\]
+同じ主張はordered模型が滑らかで交換が自由な相対$W_{R_0}$にも成り立つ。
+\end{theorem}
+\begin{proof}
+曲線の持ち上げ$C_{R_0}$のordered被覆$\widetilde C_{R_0}$を取る。
+二つの射影の線束$L_{i,R_0}$は特殊ファイバーで次数3、$H^1=0$だから
+$H^0(L_{i,R_0})$は階数3の自由加群で基底変更と可換である。
+$T_{R_0}^*\to H^0(L_{i,R_0})$は特殊ファイバーで全射ゆえ全射。
+被覆の交換により二つのkernelは一致し、そのannihilatorを$U_{R_0}\subset T_{R_0}$とする。
+両射影が$\PP(U_{R_0})$を経由するので
+$C_{R_0}\subset\PP(\Sym^2U_{R_0})$が降下して成立する。
+$H|_{C_{R_0}}$の$H^0$もrank3自由であるから、
+曲線の相対線形包$B_{R_0}$は
+$W_{R_0}^\perp\cap\Sym^2U_{R_0}$内のrank3直和因子となる。
+$r_{U_{R_0}}$は$B_{R_0}^\perp$へ因子化し、特殊ファイバーで全射なので全射。
+従って厳密に階数3で$U_{R_0}\in Z_W(R_0)$、
+$B_{R_0}=(\operatorname{im}r_{U_{R_0}})^\perp$となる。
+そのdeterminant三次曲線$C_{U_{R_0}}$と$C_{R_0}$は特殊ファイバーが一致する
+$R_0$平坦な閉部分曲線で、後者が前者に含まれるためNakayamaから等しい。
+逆に$U_{R_0}\in Z_W(R_0)$からrank3のannihilator平面とdeterminantを取り
+$C_{U_{R_0}}$を得る。ordered線束の制限$U_{R_0}^*\to H^0(L_{i,R_0})$は
+特殊ファイバーで同型なので逆構成は元の$U_{R_0}$を回復する。
+すべての操作がArtin基底変更に自然である。
+\end{proof}
+
+\section{Hessianの定階数直線}
+$F\in\Sym^3T^*$とし$M_F(x)=\operatorname{Hess}F(x)$、
+$H_F=\{\det M_F=0\}\subset\PP(T)$、$H_F^{(4)}=\{\operatorname{rk}M_F=4\}$とする。
+\begin{lemma}[kernel二次曲線の回収]\label{lem:kernel}
+$\ell=\PP(K)\subset H_F^{(4)}$では
+$\ker(\OO_\ell^5\to\OO_\ell(1)^5)\simeq\OO_\ell(-2)$。
+その二次kernel曲線の係数は一意な三次元共通等方空間$U$を張り、
+$\ell$の全局所Artin変形に対して自然に持ち上がる。
+\end{lemma}
+\begin{proof}
+対称性によりcokernelはkernelの双対に$(1)$を捻った線束。
+kernelを$\OO(-e)$と書いた次数比較$5-e=e+1$から$e=2$。
+$k(s,t)=s^2u_0+stu_1+t^2u_2$の係数が二次元以下に入るなら、
+$\OO^2/\OO(-2)\simeq\OO(2)$から$\OO(1)^5$への単射が存在する矛盾が生じる。
+$M(s,t)k(s,t)=0$の四係数
+$M_0u_0=0$、$M_0u_1+M_1u_0=0$、
+$M_0u_2+M_1u_1=0$、$M_1u_2=0$
+を対称性でpairすると、両pencilが$\langle u_0,u_1,u_2\rangle$上で零となる。
+Artin底上でも階数4のSchur補元が零でkernelは直線束、
+$H^1(\PP^1,\OO)=0$により$\OO(-2)$の持ち上げは一意。
+$U_{R_0}=\operatorname{im}(H^0(\ell_{R_0},L_{R_0}^*)^*\to T_{R_0})$
+が基底変更と可換なrank3直和因子となり同じ係数恒等式を満たす。
+\end{proof}
+\begin{theorem}[Hessian直線の全変形関手]
+$U\in Z_F$で$F|_U$が滑らか、$K=\ker r_U$、$T=U\oplus K$とする。
+$U_{R_0}\mapsto\PP(\ker r_{U_{R_0}})$は$U$での$Z_F$の
+Artin変形関手と$\ell=\PP(K)$での$\operatorname{Fano}_1(H_F^{(4)})$の変形関手の同型であり、
+逆はkernel二次曲線のspanである。一般の$F$では
+$Z_F\simeq\operatorname{Fano}_1(H_F^{(4)})$がスキーム同型となる。
+\end{theorem}
+\begin{proof}
+$Z_F$上では四次minorが零で三次minorが単元だから
+$r_{U_{R_0}}$は厳密階数3でkernel $K_{R_0}$はrank2直和因子。
+その二次式は$U_{R_0}$上で零なのでHessianは$3\times3$零blockを持ち、
+$\ell_{R_0}=\PP(K_{R_0})$上でdeterminantが零。
+特殊ファイバーで全点rank4だからArtin底でもrank4が保たれる。
+前補題のkernel係数spanは$U_{R_0}$に含まれ、同rankの直和因子ゆえ一致。
+逆に$\ell_{R_0}$のkernel曲線から得る$U_{R_0}$は
+$T_F(K_{R_0},U_{R_0},U_{R_0})=0$を満たし
+$K_{R_0}\subset\ker r_{U_{R_0}}$、双方rank2だから一致。
+基底変更に自然なので変形関手同型となる。
+\end{proof}
+\begin{cor}[法束]
+一般の$F$では275本の$\ell\subset H_F^{(4)}$のそれぞれについて
+$N_{\ell/H_F}\simeq\OO_{\PP^1}(-1)^{\oplus2}$である。
+\end{cor}
+\begin{proof}
+$\operatorname{rk}M_F(x)=4$でkernelが$\CC k$なら
+$\operatorname{adj}M_F(x)=\lambda kk^{\mathsf t}$、$\lambda\ne0$。
+従って$d(\det M_F)_x(y)=2\lambda\partial_kF(y)\ne0$：
+零なら$F$が方向$k$に依存せず特異な射影錐になる。
+法束列
+$0\to N_{\ell/H_F}\to\OO_\ell(1)^3\to\OO_\ell(5)\to0$
+からrank2、次数$-2$。接空間$H^0(N)$は$Z_F$の被約孤立性から零だから
+Birkhoff--Grothendieckにより$\OO(-1)^2$。
+\end{proof}
+
+\section{平方判別式と次数一曲線の完全な網羅}
+\begin{lemma}[正則な偶数次対称pencil]\label{lem:square}
+次元$2m$の対称pencil $A+tB$が正則で
+$\det(A+tB)$の$\CC(t)^*/\CC(t)^{*2}$での平方類が自明であることと、
+全pencilに共通の$m$次元等方空間があることは同値である。
+\end{lemma}
+\begin{proof}
+$A$を非退化とし$T=A^{-1}B$を$A$自己随伴とする。
+平方類自明は$T$の各固有値の代数的重複度が偶数であることと同値。
+互いに直交する各一般化固有空間に還元し、偶数次元の自己随伴nilpotent $N$を考える。
+$N\ne0$では最長Jordan block長$r\ge2$を取り
+$v=N^{r-1}w\ne0$とすれば$Nv=0$、
+$A(v,v)=A(w,N^{2r-2}w)=0$。
+$N=0$でも等方直線を選べる。
+$v^\perp/\CC v$へ帰納し、$N$不変な最大等方空間を得る。
+各固有値成分の直和が$T$不変な$A$-Lagrangianであり、
+$B(L,L)=A(TL,L)=0$。
+逆に共通Lagrangianなら$T$がそれを保ち、
+全作用の特性多項式は部分空間上のものの平方になる。
+\end{proof}
+\begin{lemma}[五次のrank四pencil]
+五次対称pencil $M(s,t)$の一般rankが4で、非退化四次元商の
+判別式が$\CC(s/t)$上平方なら、三次元の共通等方空間が存在する。
+rank低下点を許す。
+\end{lemma}
+\begin{proof}
+$M:\OO_{\PP^1}^5\to\OO_{\PP^1}(1)^5$のkernelを$\OO(-e)$とする。
+対称性からcokernelのtorsion-free部分は$\OO(e+1)$、
+そのtorsionの長さは$4-2e$で、$e=0,1,2$。
+$e=2$では全点rank4で補題\ref{lem:kernel}を適用。
+$e=0$では固定kernelを割り四次正則pencilとし補題\ref{lem:square}を適用。
+$e=1$ではkernelは$su+tv$、$M_0u=M_1v=0$、
+$M_0v=-M_1u=r\ne0$、$r(u)=r(v)=0$。
+定数合同変換で
+\[
+ M(s,t)\sim\begin{pmatrix}0&0&-t\\0&0&s\\-t&s&0\end{pmatrix}
+ \perp D(s,t)
+\]
+とできる。$D$は二次正則対称pencil。
+三次blockの非退化商は双曲平面だから、その判別式は平方類自明。
+$D$に補題\ref{lem:square}を適用し、
+共通等方直線と$\langle u,v\rangle$の直和を取る。
+\end{proof}
+\begin{lemma}[全rankが3以下の場合]
+五次対称pencilの全行列のrankが3以下なら三次元共通等方空間がある。
+\end{lemma}
+\begin{proof}
+最大rankを$r\le3$として
+$M_0=\begin{psmallmatrix}A&0\\0&0\end{psmallmatrix}$、
+$M_1=\begin{psmallmatrix}B&D\\D^{\mathsf t}&E\end{psmallmatrix}$とする。
+Schur補元$tE-t^2D^{\mathsf t}(A+tB)^{-1}D=0$から$E=0$。
+$r\le2$なら$\ker M_0$内の三次元空間でよい。
+$r=3$なら$C=A^{-1}B,J=A^{-1}D$として
+$J^{\mathsf t}AC^jJ=0$ ($j\ge0$)。
+$S=\operatorname{span}\{C^j\operatorname{im}J\}$は$A$全等方かつ$C$不変で、
+三次元非退化二次空間なので次元は高々1。
+$\dim S=1$なら$\ker M_0\oplus S$、
+$S=0$なら$D=0$なので、三次元空間の二つの二次式$A,B$の共通零点
+$[w]\in\PP^2$を取り$\ker M_0\oplus\CC w$とする。
+\end{proof}
+\begin{theorem}[550本の全次数一曲線と仮想数]
+一般のgradient系のdouble quintic symmetroid
+$\pi:Y_F\to H_F$の偏極$L=\pi^*\OO(1)$について、
+次数一のintegral曲線は定階数4の275直線の二本ずつの持ち上げに限る。
+従って550本で、各法束は$\OO_{\PP^1}(-1)^2$。
+さらに$\Hilb_{m+1}(Y_F)$は550個の被約点であり、
+未標点・種数零の次数一stable mapの仮想数の和は550である。
+\end{theorem}
+\begin{proof}
+$H_F$の直線$\ell=\PP(K)$が全rank3以下なら前補題、
+generic rank4でruling二重被覆がsplitするなら平方判別式補題から
+共通等方三次元$U$を得る。
+三重偏極の対称性から$T_F(K,U,U)=0$、
+すなわち$K\subset\ker r_U$、$U\in Z_F$。
+全275点で$r_U$はrank3だから$K=\ker r_U$となり、
+その直線は定階数4。従って低rankだけの直線と非定階数でsplitする直線はない。
+$L\cdot C=1$のintegral曲線では$\pi(C)=\ell$について
+$1=\deg(C\to\ell)\deg_{\OO(1)}\ell$、ゆえに$\ell$は直線で射は次数一。
+有限双有理射から正規な$\ell\simeq\PP^1$への写像は同型。
+generic rank4点上のruling被覆はsplitしなければならず、
+上記275本の一つの二持ち上げに限る。
+法束は有限étale被覆上で前述の$\OO(-1)^2$に一致する。
+Hilbert多項式$m+1$を持つスキームは次数一で支持直線のgeneric multiplicity一、
+余分なembedded点などはEuler標数を増すので存在しない。
+stable mapはampleな$L$の次数一・未標点ゆえ収縮成分を含まず、
+この550本の$\PP^1$への同型だけ。
+相対変形複体は法束$\OO(-1)^2$に準同型で
+$H^0(N)=H^1(N)=0$だから各仮想重複度は1となる。
+\end{proof}
+\section{範囲}
+一般の275点の存在とregularityは別稿の定理に依存する。
+ここで数えたのはruling被覆上の\emph{次数一}曲線であり、
+Hessian超曲面上の全直線が275本という意味ではない。
+原論文IV第11・12節の長さ二・三の曲線は別に扱う。
+\begin{thebibliography}{9}
+\bibitem{HT} S. Hosono and H. Takagi,
+\emph{Double quintic symmetroids, Reye congruences, and their derived equivalence},
+J. Differential Geom. 104 (2016), 443--497, \url{https://arxiv.org/abs/1302.5883}.
+\bibitem{BM} A. Boralevi and E. Mezzetti,
+\emph{Pencils of singular quadrics of constant rank and their orbits},
+\url{https://arxiv.org/abs/2206.00503}.
+\end{thebibliography}
+\end{document}
