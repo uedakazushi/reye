@@ -8,7 +8,7 @@
 
 ## 到達点と確実性
 
-- **PDF 原本保全**：移管元 `nc-cubic` の `papers/pdf-only/boundary/reye_stationary.pdf` と完全一致する Git blob SHA `ce5918ae30017f0df735efb2b6ee2b9ff1010399` を `papers/pdf-only/reye_stationary.pdf` に保存。
+- **PDF 原本保全**：移管元 `poisson-cubic`（当時 `nc-cubic`） の `papers/pdf-only/boundary/reye_stationary.pdf` と完全一致する Git blob SHA `ce5918ae30017f0df735efb2b6ee2b9ff1010399` を `papers/pdf-only/reye_stationary.pdf` に保存。
 - **原稿に証明を記載**：275停留平面、定階数 Hessian pencil、一般 Reye 三様体、Hilbert/PT計数、550本の次数１曲線と法束、モノドロミー、長さ２・３の局所特殊化。分割原稿は `papers/source_recovery/*.tex`。
 - **独立に検算した有限恒等式**：Chern・Porteous の275、rank表の一般例、fold conormal、cusp の係数、対称 pencil の具体例等。検証コードは `computations/source_recovery/`。
 - **未完了**：77ページ全体の定理番号・仮定・証明の逐条照合、普遍 ordered 模型の全階数層、Atiyah 束 `F_2` と PT 局所仮想寄与、全 special rank strata の独立監査。現行 TeX は**原 PDF 全体の代替と認定していない**。記載された「証明」と今回の独立再検証を区別する。

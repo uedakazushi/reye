@@ -1,6 +1,6 @@
 # Reye 原論文 TeX 化 TODO（2026-11-10）
 
-**原本：** `papers/pdf-only/reye_stationary.pdf`（77ページ）。旧 `nc-cubic` 原本の Git blob SHA: `ce5918ae30017f0df735efb2b6ee2b9ff1010399`。未復元の論証を含むため、PDFは一時的に追跡する。
+**原本：** `papers/pdf-only/reye_stationary.pdf`（77ページ）。旧 `nc-cubic`（現 `poisson-cubic`） 原本の Git blob SHA: `ce5918ae30017f0df735efb2b6ee2b9ff1010399`。未復元の論証を含むため、PDFは一時的に追跡する。
 
 - [x] Reye専用の TeX ４本・検証コード５本と原本PDFをこの専用リポジトリへ移す。
 - [x] GitHub `main` を正本とし、`.latexmkrc` でLuaLaTeX組版、生成PDFを原則 ignore する。
